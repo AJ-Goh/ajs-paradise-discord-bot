@@ -3,34 +3,34 @@ The GitHub repository for AJ's Paradise Discord Bot, by AJ Goh.
 
 ## Bot Information
 
-Bot Name:  AJ's Paradise
-Bot Birth: 15 July 2023 03:00 GMT
-Bot ID:    1129602728050565311
-Bot Token: (Check Secrets Tab "TOKEN")
+- Bot Name:  AJ's Paradise
+- Bot Birth: 15 July 2023 03:00 GMT
+- Bot ID:    1129602728050565311
+- Bot Token: (Check Secrets Tab "TOKEN")
 
 
 ## Other Information
 
-Application ID: 1129602728050565311
+- Application ID: 1129602728050565311
 
-AJ Goh User ID: 832811319957651457
-AJ's Paradise Server ID: 940996562715291748
-AJ's Paradise Staff Team Server ID: 1123598807985303664
+- AJ Goh User ID: 832811319957651457
+- AJ's Paradise Server ID: 940996562715291748
+- AJ's Paradise Staff Team Server ID: 1123598807985303664
 
-AJ's Paradise Invite Link: https://discord.gg/ZZNrbbH33U
-AJ Goh YouTube Channel Link: https://www.youtube.com/c/ajgoh
-@aj.goh Instagram Profile Link: https://instagram.com/aj.goh
+- AJ's Paradise Invite Link: https://discord.gg/ZZNrbbH33U
+- AJ Goh YouTube Channel Link: https://www.youtube.com/c/ajgoh
+- AJ Goh Instagram Profile Link: https://instagram.com/aj.goh
 
-AJ's Paradise Server Icon Link: https://cdn.discordapp.com/icons/940996562715291748/7a2f9c97839d342ee2c8afecf1968ad9.png?size=512
+- AJ's Paradise Server Icon Link: https://cdn.discordapp.com/icons/940996562715291748/7a2f9c97839d342ee2c8afecf1968ad9.png?size=512
 
-Replit Dashboard Link: https://replit.com/~
-UptimeRobot Dashboard Link: https://uptimetobot.com
+- Replit Dashboard Link: https://replit.com/~
+- UptimeRobot Dashboard Link: https://uptimetobot.com
 
 
 ## Tutorial Links
 
-Begin with Javascript: https://youtu.be/KZ3tIGHU314
-Begin with Python: https://youtu.be/SPTfmiYiuok
+- Begin with Javascript: https://youtu.be/KZ3tIGHU314
+- Begin with Python: https://youtu.be/SPTfmiYiuok
 
 
 ## Versions
