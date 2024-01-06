@@ -32,6 +32,8 @@ The GitHub repository for AJ's Paradise Discord Bot, by AJ Goh.
 
 - Begin with Javascript: https://youtu.be/KZ3tIGHU314
 - Begin with Python: https://youtu.be/SPTfmiYiuok
+- Hosting on Pylex: https://www.youtube.com/watch?v=jzA_jvE9Rzo
+- Hosting Alternatives: https://www.youtube.com/watch?v=MusIvEKjqsc
 
 
 ## Versions
@@ -204,3 +206,9 @@ VERSION 1.4.0 (11 DECEMBER 2023 1415 GMT)
 - Updated slash command: timestamp
   - Added keywords in "date" field: yesterday, ytd, today, tdy, tomorrow, tmr
   - Added keywords in "time" field: now
+
+VERSION 2.0.0 (6 JANUARY 2024 0900 GMT)
+
+- Successfully migrated from Replit to Pylex for bot hosting
+  - Replit no longer offering free hosting from 2024
+  - Also transferred code to GitHub just in case
