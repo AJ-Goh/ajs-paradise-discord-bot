@@ -211,4 +211,4 @@ VERSION 2.0.0 (6 JANUARY 2024 0900 GMT)
   - Replit no longer offering free hosting from 2024
   - Also transferred code to GitHub just in case
 - Created a separate file to contain image links
-  - Images hosted by Google Sites
+  - Images hosted by Google Photos
