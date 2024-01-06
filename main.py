@@ -40,35 +40,6 @@ async def main():
 def keywords(message: str, keywords: list):
   return any(message.startswith(f"{item} ") or message.endswith(f" {item}") or f" {item} " in message or item == message for item in keywords)
 
-# GENERATE BACKUPS (EVERY 48H)
-
-JSON_MSG = 'data/data_messages.json'
-JSON_MMM = 'data/data_mm.json'
-
-# Function to copy the JSON file with a timestamped filename
-def copy_json_with_timestamp(src_path, dest_folder):
-    # Get the current date and time
-    current_date = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-    # Create a timestamped filename
-    dest_path = f'{dest_folder}/backup_{current_date}.json'
-    # Copy the JSON file to the new location with the timestamped filename
-    shutil.copy(src_path, dest_path)
-
-# Schedule the copy every 48 hours
-while True:
-    # Copy the JSON files with timestamped filename
-    copy_json_with_timestamp(JSON_MSG, 'data/backup_messages')
-    copy_json_with_timestamp(JSON_MMM, 'data/backup_mm')
-    # Wait for 48 hours before the next copy
-    next_copy_time = datetime.now() + timedelta(hours=48)
-    wait_time = (next_copy_time - datetime.now()).total_seconds()
-    if wait_time > 0:
-        print(f"Next copy will be in {wait_time / 3600} hours.")
-        time.sleep(wait_time)
-    else:
-        print("Error: Negative wait time. Adjust your system time or check the script.")
-        break
-
 # ON MESSAGE
 
 @bot.event

@@ -212,5 +212,3 @@ VERSION 2.0.0 (6 JANUARY 2024 0900 GMT)
   - Also transferred code to GitHub just in case
 - Created a separate file to contain image links
   - Images hosted by Google Photos
-- Added backup system for databases: messages, mm
-  - Backups generate every 48 hours
