@@ -22,8 +22,6 @@ The GitHub repository for AJ's Paradise Discord Bot, by AJ Goh.
 - AJ Goh Music YouTube Channel Link: https://www.youtube.com/@ajgohmusic
 - AJ Goh Instagram Profile Link: https://instagram.com/aj.goh
 
-- AJ's Paradise Server Icon Link: https://cdn.discordapp.com/icons/940996562715291748/7a2f9c97839d342ee2c8afecf1968ad9.png?size=512
-
 - Replit Dashboard Link: https://replit.com/
 - UptimeRobot Dashboard Link: https://uptimetobot.com
 
@@ -212,3 +210,5 @@ VERSION 2.0.0 (6 JANUARY 2024 0900 GMT)
 - Successfully migrated from Replit to Pylex for bot hosting
   - Replit no longer offering free hosting from 2024
   - Also transferred code to GitHub just in case
+- Created a separate file to contain image links
+  - Images hosted by Google Sites

@@ -7,6 +7,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from misc.messages import CHANGELOG_LIST
+from misc.images import AJ_RAINBOW
 
 
 class SlashCmd_Bot(commands.GroupCog, group_name="bot"):
@@ -35,9 +36,7 @@ class SlashCmd_Bot(commands.GroupCog, group_name="bot"):
                       colour=0xFFCC00)
     e.set_author(
       name=f"{self.bot.user}",
-      icon_url=
-      "https://cdn.discordapp.com/icons/940996562715291748/7a2f9c97839d342ee2c8afecf1968ad9.png?size=512"
-    )
+      icon_url=AJ_RAINBOW)
     e.set_footer(text=CHANGELOG_LIST[1] + " · " + CHANGELOG_LIST[2] + " GMT")
     await interaction.response.send_message(embed=e)
 

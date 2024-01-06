@@ -4,9 +4,10 @@ from discord.ext import commands
 from discord.ui import View
 from discord.app_commands import Choice
 from datetime import datetime, timedelta, date
+from dotenv import load_dotenv
 from misc.keep_alive import keep_alive
 from misc.messages import WELCOME_MESSAGE, WELCOME_MESSAGE_STAFF, WELCOME_MESSAGE_NONE, NINETYNINE_DESC, SERVER_RULES
-from dotenv import load_dotenv
+from misc.images import RULEBOOK, NINETYNINE, NINETYNINE_THUMBNAIL
 
 # INTENTS AND TOKEN
 
@@ -174,7 +175,7 @@ async def rules(interaction: discord.Interaction):
     description = SERVER_RULES,
     colour = 0xffcc00
   )
-  embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/904318040710193232/1144984174760034394/discord_rule_book.png")
+  embed.set_thumbnail(url=RULEBOOK)
   view = RulesView()
   view.add_item(discord.ui.Button(
     label = "View All Rules",
@@ -380,7 +381,7 @@ class Buttons(View):
                 description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
                 color=0xaaaaff
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
         else:
             Win = False
@@ -389,7 +390,7 @@ class Buttons(View):
                 description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
                 color=0xffaaaa
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
         await interaction.edit_original_response(embed=embed, view=self)
         if Win == True:
@@ -409,7 +410,7 @@ class Buttons(View):
                 description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
                 color=0xaaaaff
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
         else:
             Win = False
@@ -418,7 +419,7 @@ class Buttons(View):
                 description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
                 color=0xffaaaa
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
         await interaction.edit_original_response(embed=embed, view=self)
         if Win:
@@ -439,7 +440,7 @@ class Buttons(View):
                 description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
                 color=0xaaaaff
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
         else:
             Win = False
@@ -448,7 +449,7 @@ class Buttons(View):
                 description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
                 color=0xffaaaa
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
         await interaction.edit_original_response(embed=embed, view=self)
         if Win:
@@ -468,7 +469,7 @@ class Buttons(View):
                 description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
                 color=0xaaaaff
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
         else:
             Win = False
@@ -477,7 +478,7 @@ class Buttons(View):
                 description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
                 color=0xffaaaa
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
         await interaction.edit_original_response(embed=embed, view=self)
         if Win:
@@ -497,7 +498,7 @@ class Buttons(View):
                 description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
                 color=0xaaaaff
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
         else:
             Win = False
@@ -506,7 +507,7 @@ class Buttons(View):
                 description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
                 color=0xffaaaa
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
 
         await interaction.edit_original_response(embed=embed, view=self)
@@ -526,7 +527,7 @@ class YesNo(View):
             return
         await interaction.response.defer()
         Embed = discord.Embed(description="Deleting session..", color=0xffaaaa)
-        Embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+        Embed.set_author(name="ninetynine", icon_url=NINETYNINE)
         Embed.set_footer(text="Created by AJ Goh")
         await interaction.edit_original_response(embed=Embed, view=None)
 
@@ -539,7 +540,7 @@ class YesNo(View):
 
         del Games[interaction.user.id]
         Embed = discord.Embed(description="Successfully deleted the previous session. You may proceed to run the command again to start a new game session.", color=0xffaaaa)
-        Embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+        Embed.set_author(name="ninetynine", icon_url=NINETYNINE)
         Embed.set_footer(text="Created by AJ Goh")
         Message = await interaction.edit_original_response(embed=Embed, view=None)
 
@@ -552,7 +553,7 @@ class YesNo(View):
             return
         await interaction.response.defer()
         Embed = discord.Embed(description="Action cancelled.", color=0xaaaaff)
-        Embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+        Embed.set_author(name="ninetynine", icon_url=NINETYNINE)
         Embed.set_footer(text="Created by AJ Goh")
         Message = await interaction.edit_original_response(embed=Embed, view=None)
         time.sleep(3)
@@ -571,7 +572,7 @@ class YesNo(View):
 async def Game(interaction: discord.Interaction, difficulty: str):
     if interaction.channel.type == discord.ChannelType.private:
         Embed = discord.Embed(description="Sorry, this command is not available in DMs.", color=0xffdddd)
-        Embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+        Embed.set_author(name="ninetynine", icon_url=NINETYNINE)
         Embed.set_footer(text="Created by AJ Goh")
         await interaction.response.send_message(embed=Embed)
         return
@@ -580,8 +581,8 @@ async def Game(interaction: discord.Interaction, difficulty: str):
       e = discord.Embed(title="Welcome to ninetynine!",
                         description=NINETYNINE_DESC,
                         colour=0xffffff)
-      e.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
-      e.set_thumbnail(url="https://cdn.discordapp.com/attachments/904318040710193232/1130944349245538495/Image_Asset.png")
+      e.set_author(name="ninetynine", icon_url=NINETYNINE)
+      e.set_thumbnail(url=NINETYNINE_THUMBNAIL)
       e.set_footer(text="Created by AJ Goh")
       await interaction.response.send_message(embed=e)
 
@@ -592,7 +593,7 @@ async def Game(interaction: discord.Interaction, difficulty: str):
                 description="You already have an existing game session, would you like to delete it?",
                 color=0xffaaaa
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
             await interaction.response.send_message(embed=embed)
             view = YesNo(message=interaction, UserID=interaction.user.id)
@@ -638,7 +639,7 @@ async def Game(interaction: discord.Interaction, difficulty: str):
                 description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
                 color=0xffaaaa
             )
-            embed.set_author(name="ninetynine", icon_url="https://cdn.discordapp.com/attachments/904318040710193232/1130945586250662040/Image_Asset.png")
+            embed.set_author(name="ninetynine", icon_url=NINETYNINE)
             embed.set_footer(text="Created by AJ Goh")
             await interaction.response.defer()
             message = await interaction.followup.send(embed=embed, wait=True)

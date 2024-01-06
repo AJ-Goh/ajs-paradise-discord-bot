@@ -8,16 +8,16 @@
 # 7. SERVER_RULES
 
 CHANGELOG_LIST = [
-  "Version 1.4.0", # VERSION NUMBER (X.Y.Z)
-  "11 December 2023", # DATE (FULL)
-  "1415", # TIME (24HR, GMT)
+  "Version 2.0.0", # VERSION NUMBER (X.Y.Z)
+  "6 January 2024", # DATE (FULL)
+  "0900", # TIME (24HR, GMT)
   """
 
-- Added slash command: dm
-  - (Administrator Only) DMs a user
-- Updated slash command: timestamp
-  - Added keywords in "date" field: yesterday, ytd, today, tdy, tomorrow, tmr
-  - Added keywords in "time" field: now
+- Successfully migrated from Replit to Pylex for bot hosting
+  - Replit no longer offering free hosting from 2024
+  - Also transferred code to GitHub just in case
+- Created a separate file to contain image links
+  - Images hosted by Google Sites
 
 """]
 

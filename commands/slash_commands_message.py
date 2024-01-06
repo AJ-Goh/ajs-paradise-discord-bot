@@ -13,7 +13,7 @@ from discord import app_commands
 # << Data >> #
 
 MultiXP = 1
-FooterText = "Redeem 400 R$ for every 10 levels!"
+FooterText = "Redeem 400 Robux for every 10 message levels!"
 
 Administrators = [
     641724025780830220,
