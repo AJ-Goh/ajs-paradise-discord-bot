@@ -40,11 +40,54 @@ async def main():
 def keywords(message: str, keywords: list):
   return any(message.startswith(f"{item} ") or message.endswith(f" {item}") or f" {item} " in message or item == message for item in keywords)
 
+# DEFINE BACKUP
+
+def backup(source_path, destination_folder):
+  try:
+    # Get current date and time
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    # Create a destination file name with timestamp
+    destination_file = f"{destination_folder}/backup_{timestamp}.json"
+    # Copy the file
+    shutil.copy(source_path, destination_file)
+    print(f"💟 JSON file backed up successfully to {destination_file}")
+  except FileNotFoundError:
+    print("Source file not found.")
+  except Exception as e:
+    print(f"An error occurred: {e}")
+
+def files_check(directory, condition):
+  try:
+    # List all files in the directory
+    files = os.listdir(directory)
+    if not files:
+      print(f"🆘 No files found in the directory: {directory}")
+      return False
+    for file in files:
+      if condition in file:
+        return True
+    return False
+  except FileNotFoundError:
+    print(f"🆘 Directory not found: {directory}")
+    return False
+  except Exception as e:
+    print(f"🆘 An error occurred: {e}")
+    return False
+
 # ON MESSAGE
 
 @bot.event
 async def on_message(msg):
   print("🆕 Message: ", msg.content)
+
+  TIME_TODAY = datetime.now().strftime("%Y-%m-%d")
+  DATE_TODAY = datetime.now().strftime("%d")
+
+  if (int(DATE_TODAY)%2==1) and not files_check("data/backup_messages", TIME_TODAY):
+    backup("data/data_messages.json", "data/backup_messages")
+  if (int(DATE_TODAY)%2==1) and not files_check("data/backup_mm", TIME_TODAY):
+    backup("data/data_mm.json", "data/backup_mm")
+
   if msg.author == bot.user:
     return
     
