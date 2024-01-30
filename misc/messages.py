@@ -128,17 +128,6 @@ Below are a few rules and guidelines of this server. Please make sure to follow 
 9. No seeking or sharing of personal information.
 10. No participating in other forms of malicious activity.
 
-Upon committing a violation of any of the server rules, you will be punished accordingly, usually through warnings. Note that accumulating warnings will result in the punishments stated below (based on the warnings from the last 120 days):
-
-- 3 warnings: 1 hour mute
-- 6 warnings: 1 day mute
-- 10 warnings: 7 day mute
-- 15 warnings: 3 day ban
-- 20 warnings: 7 day ban
-- 25 warnings: 15 day ban
-- 30 warnings: 30 day ban
-- Another 30 days added to the ban duration for every 5 additional warnings.
-
 Feel free to click the button below to view the full list of rules, along with their punishments and other information about them.
 
 """

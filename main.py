@@ -121,7 +121,7 @@ async def on_message(msg):
     
   # Giveaway
   elif keywords(m, ["gw", "giveaway", "giveaways"]):
-    e = discord.Embed(description="Every 2 weeks, a giveaway for **400 Robux** is hosted in AJ's Paradise!\n \nSimply head to <#957854693688746004> to join the current giveaway. Take note that you need to send **100 messages** in the server to be **eligible** to join one, so if you have not yet met that requirement, feel free start or join a conversation in <#940996564384628767>!", colour=0xffcc00)
+    e = discord.Embed(description="Every 2 weeks, a giveaway for **400 Robux** is hosted in AJ's Paradise!\n \nSimply head to <#957854693688746004> to join the current giveaway. Take note that you need to send **50 messages** in the server to be **eligible** to join one, so if you have not yet met that requirement, feel free start or join a conversation in <#940996564384628767>!", colour=0xffcc00)
     e.set_footer(text="This embed was sent due to the 'giveaway' trigger, react with any emoji to dismiss this embed.")
     reply_type = "embed"
     reply_content = e
