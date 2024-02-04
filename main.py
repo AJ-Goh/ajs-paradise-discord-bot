@@ -186,6 +186,12 @@ async def on_member_join(mbr):
   await aj_user.create_dm()
   await aj_user.dm_channel.send(f"## {clr} Member Join\n- **ORDER**  {mbr.guild.member_count}\n- **USER**  {mbr.name}\n- **ID**  ||`ID: {mbr.id}`||\n- **SERVER**  {mbr.guild.name}")
   
+  general = bot.get_channel(940996564384628767)
+  join_channel = bot.get_channel(1203190503844216893)
+  if mbr.guild.id == 940996562715291748:
+    await general.channel.send(f"Welcome {mbr.mention} to AJ's Paradise!")
+    await join_channel.channel.send(f"## 🔺 Member Join\n- **ORDER**  {mbr.guild.member_count}\n- **USER**  {mbr.name}\n- **ID**  ||`ID: {mbr.id}`||\n- **SERVER**  {mbr.guild.name}")
+
 # DM ON LEAVE
 
 @bot.event
@@ -203,6 +209,10 @@ async def on_member_remove(mbr):
   aj_user = bot.get_user(832811319957651457)
   await aj_user.create_dm()
   await aj_user.dm_channel.send(f"## {c} Member Leave\n- **ORDER**  {mbr.guild.member_count}\n- **USER**  {mbr.name}\n- **ID**  ||`ID: {mbr.id}`||\n- **SERVER**  {mbr.guild.name}")
+
+  leave_channel = bot.get_channel(1203190717673902241)
+  if mbr.guild.id == 940996562715291748:
+    await leave_channel.channel.send(f"## 🔻 Member Leave\n- **ORDER**  {mbr.guild.member_count}\n- **USER**  {mbr.name}\n- **ID**  ||`ID: {mbr.id}`||\n- **SERVER**  {mbr.guild.name}")
 
 # SERVER RULES
 
