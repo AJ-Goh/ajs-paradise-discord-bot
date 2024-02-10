@@ -233,7 +233,7 @@ async def rules(interaction: discord.Interaction):
   view.add_item(discord.ui.Button(
     label = "View All Rules",
     style = discord.ButtonStyle.link,
-    url = "https://docs.google.com/document/d/e/2PACX-1vSCxUZK8pyLGDLWzj-Xq-zVau_Y1Z7Vh7QUyq_8SBupyEnXJh0jQ0Gfj-KaSqABUVCj2r3DP2B8sOX4/pub"
+    url = "https://sites.google.com/view/ajgoh/discord-server/server-rules"
   ))
   await interaction.response.send_message(embed=embed, view=view)
 
