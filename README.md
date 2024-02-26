@@ -214,3 +214,16 @@ VERSION 2.0.0 (6 JANUARY 2024 0900 GMT)
   - Images hosted by Google Photos
 - Added backup system for databases: message, mm
   - Backups occur every 48 hours
+
+VERSION 2.0.1 (26 FEBRUARY 2024 1600 GMT)
+
+- Added slash command: msg
+  - (Administrator Only) Sends a message
+- Added group cog: request
+  - Added slash command: request feature
+    - Requests a feature to be added to this bot
+  - Added slash command: request drop
+    - Requests to host a sudden drop in AJ's Paradise
+  - Added slash command: request sponsor
+    - Requests to host a sponsored item in AJ's Paradise
+- Increased text trigger react-to-delete timeout countdown from 60.0s to 300.0s

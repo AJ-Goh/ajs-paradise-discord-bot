@@ -153,7 +153,7 @@ async def on_message(msg):
     return user == msg.author and reaction.message.id == reply_msg.id
 
   try:
-    reaction, user = await bot.wait_for('reaction_add', timeout=60.0, check=check)
+    reaction, user = await bot.wait_for('reaction_add', timeout=300.0, check=check)
   except asyncio.TimeoutError:
     pass # No reaction within the timeout
   else:
@@ -236,39 +236,6 @@ async def rules(interaction: discord.Interaction):
     url = "https://sites.google.com/view/ajgoh/discord-server/server-rules"
   ))
   await interaction.response.send_message(embed=embed, view=view)
-
-# FEATURE REQUEST
-
-@bot.tree.command(name="reqfeature", description="Request a feature to be added to the server bot.")
-@app_commands.describe(feature = "State and describe the feature you would like to request.")
-async def reqfeature(interaction: discord.Interaction, feature: str):
-  aj_user = bot.get_user(832811319957651457)
-  await aj_user.create_dm()
-  await aj_user.dm_channel.send(f"## 🔵 Feature Request\n- **USER**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **REQUEST**  {feature}")
-  e = discord.Embed(title="Feature Request Sent ✓", description=f"- {feature}", colour=0xffcc00)
-  await interaction.response.send_message(embed=e)
-
-# SPONSOR REQUEST
-
-@bot.tree.command(name="reqsponsor", description="Request to host a sponsored item in AJ's Paradise.")
-@app_commands.describe(
-  type = "State the type of the sponsored item.",
-  details = "State the name and give details regarding your sponsored item.",
-  datetime = "State the date and time of when the sponsored item is hosted.",
-  prize = "State the prize(s) offered for the sponsored item.",
-  numberofwinners = "State the number of winners for the sponsored item"
-  )
-@app_commands.choices(type = [
-  app_commands.Choice(name= "Event or Minigame", value= "Event or Minigame"),
-  app_commands.Choice(name= "Giveaway or Raffle", value= "Giveaway or Raffle"),
-  app_commands.Choice(name= "Other", value= "Other")
-])
-async def reqsponsor(interaction: discord.Interaction, type: str, details: str, datetime: str, prize: str, numberofwinners: int):
-  aj_user = bot.get_user(832811319957651457)
-  await aj_user.create_dm()
-  await aj_user.dm_channel.send(f"## 🟣 Sponsor Request\n- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **TYPE**  {type}\n- **DETAILS**  {details}\n- **DATE AND TIME**  {datetime}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}")
-  e = discord.Embed(title="Sponsor Request Sent ✓", description=f"- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **TYPE**  {type}\n- **DETAILS**  {details}\n- **DATE AND TIME**  {datetime}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}", colour=0xffcc00)
-  await interaction.response.send_message(embed=e)
 
 # TIMESTAMP GENERATOR
 
@@ -359,6 +326,17 @@ async def dm(interaction: discord.Interaction, user: discord.User, fetch: str, i
   await user.create_dm()
   await user.dm_channel.send(msg)
   await interaction.response.send_message(f"Message sent to {user.mention}: \n\n{msg}", ephemeral=True)
+
+# MSG COMMAND
+
+@bot.tree.command(name="msg", description="(Administrator Only) Send a message.")
+@app_commands.describe(input = "Input the desired text.")
+async def msg(interaction: discord.Interaction, input: str):
+  if interaction.user.id != 832811319957651457:
+    await interaction.response.send_message("You are not authorized to use this command.", ephemeral=True)
+    return
+  await interaction.channel.send(input)
+  await interaction.response.send_message(f"Message sent.", ephemeral=True)
 
 # NINETYNINE
 

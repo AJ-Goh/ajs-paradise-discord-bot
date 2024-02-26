@@ -8,18 +8,21 @@
 # 7. SERVER_RULES
 
 CHANGELOG_LIST = [
-  "Version 2.0.0", # VERSION NUMBER (X.Y.Z)
-  "6 January 2024", # DATE (FULL)
-  "0900", # TIME (24HR, GMT)
+  "Version 2.0.1", # VERSION NUMBER (X.Y.Z)
+  "26 February 2024", # DATE (FULL)
+  "1600", # TIME (24HR, GMT)
   """
 
-- Successfully migrated from Replit to Pylex for bot hosting
-  - Replit no longer offering free hosting from 2024
-  - Also transferred code to GitHub just in case
-- Created a separate file to contain image links
-  - Images hosted by Google Photos
-- Added backup system for databases: message, mm
-  - Backups occur every 48 hours
+- Added slash command: msg
+  - (Administrator Only) Sends a message
+- Added group cog: request
+  - Added slash command: request feature
+    - Requests a feature to be added to this bot
+  - Added slash command: request drop
+    - Requests to host a sudden drop in AJ's Paradise
+  - Added slash command: request sponsor
+    - Requests to host a sponsored item in AJ's Paradise
+- Increased text trigger react-to-delete timeout countdown from 60.0s to 300.0s
 
 """]
 
