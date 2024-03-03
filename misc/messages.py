@@ -61,7 +61,7 @@ If you have made it into the server, you have probably joined for the following 
 
 If you are not a Staff Team member of AJ's Paradise, please kindly leave the Discord server immediately as you are not supposed to be in there.
 
-If you are a Staff Team member of AJ's Paradise, you may begin work whenever you area ready, and you may contact any of the other staff if you need any assistance or guidance.
+If you are a Staff Team member of AJ's Paradise, you may begin work whenever you are ready, and you may contact any of the other staff if you need any assistance or guidance.
 
 Besides that, take care and have fun!
 
