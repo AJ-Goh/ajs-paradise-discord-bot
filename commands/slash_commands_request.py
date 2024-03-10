@@ -21,7 +21,7 @@ class SlashCmd_Request(commands.GroupCog, group_name="request"):
     req_channel = self.bot.get_channel(1211678134412517427)
     await req_channel.send(f"## ⚙️ Feature Request\n- **USER**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **REQUEST**  {feature}")
     e = discord.Embed(title="Feature Request Sent ✓", description=f"- {feature}", colour=0xffcc00)
-    await interaction.response.send_message(embed=e)
+    await interaction.response.send_message(embed=e, ephemeral=True)
 
   @app_commands.command(name="sponsor", description="Request to host a sponsored item in AJ's Paradise.")
   @app_commands.describe(
@@ -43,7 +43,7 @@ class SlashCmd_Request(commands.GroupCog, group_name="request"):
     req_channel = self.bot.get_channel(1211678134412517427)
     await req_channel.send(f"## 💸 Sponsor Request\n- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **TYPE**  {type}\n- **DETAILS**  {details}\n- **DATE AND TIME**  {datetime}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}")
     e = discord.Embed(title="Sponsor Request Sent ✓", description=f"- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **TYPE**  {type}\n- **DETAILS**  {details}\n- **DATE AND TIME**  {datetime}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}", colour=0xffcc00)
-    await interaction.response.send_message(embed=e)
+    await interaction.response.send_message(embed=e, ephemeral=True)
 
   @app_commands.command(name="drop", description="Request to host a sudden drop in AJ's Paradise.")
   @app_commands.describe(
@@ -58,7 +58,7 @@ class SlashCmd_Request(commands.GroupCog, group_name="request"):
     req_channel = self.bot.get_channel(1211678134412517427)
     await req_channel.send(f"## 💰 Drop Request\n- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **DETAILS**  {details}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}")
     e = discord.Embed(title="Drop Request Sent ✓", description=f"- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **DETAILS**  {details}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}", colour=0xffcc00)
-    await interaction.response.send_message(embed=e)
+    await interaction.response.send_message(embed=e, ephemeral=True)
     
 async def setup(bot):
   await bot.add_cog(SlashCmd_Request(bot))
