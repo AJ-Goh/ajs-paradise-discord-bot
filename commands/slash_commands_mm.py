@@ -13,10 +13,9 @@ from discord import app_commands
 GrandResetEnabled = False
 
 TeamDict = {
-  "None": 0xffcc00,
-  "Green": 0xbbeebb,
-  "Blue": 0xaaccee,
-  "Purple":0xccbbee
+  "None": 0xffffff,
+  "Yellow": 0xffeeaa,
+  "Green": 0xbbeebb
 }
 
 Administrators = [
