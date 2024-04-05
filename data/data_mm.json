@@ -1,8 +1,10 @@
 {
   "TScores": {
     "None": 0,
+    "Red": 0,
     "Yellow": 0,
-    "Green": 0
+    "Green": 0,
+    "Blue": 0
   },
   "832811319957651457": {
     "Score": 0,

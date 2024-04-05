@@ -14,8 +14,10 @@ GrandResetEnabled = False
 
 TeamDict = {
   "None": 0xffffff,
+  "Red": 0xffbbbb,
   "Yellow": 0xffeeaa,
-  "Green": 0xbbeebb
+  "Green": 0xbbeebb,
+  "Blue": 0xbbbbff
 }
 
 Administrators = [
