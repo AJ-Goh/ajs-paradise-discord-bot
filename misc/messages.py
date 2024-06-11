@@ -6,35 +6,34 @@
 # 5. GOODBYE_MESSAGE
 # 6. NINETYNINE_DESC
 # 7. SERVER_RULES
+# 8. STAFF_APPS_QNS
 
 CHANGELOG_LIST = [
-  "Version 2.0.1", # VERSION NUMBER (X.Y.Z)
-  "26 February 2024", # DATE (FULL)
-  "1600", # TIME (24HR, GMT)
+  "Version 2.1.0", # VERSION NUMBER (X.Y.Z)
+  "10 June 2024", # DATE (FULL)
+  "2000", # TIME (24HR, GMT)
   """
 
-- Added slash command: msg
-  - (Administrator Only) Sends a message
-- Added group cog: request
-  - Added slash command: request feature
-    - Requests a feature to be added to this bot
-  - Added slash command: request drop
-    - Requests to host a sudden drop in AJ's Paradise
-  - Added slash command: request sponsor
-    - Requests to host a sponsored item in AJ's Paradise
-- Increased text trigger react-to-delete timeout countdown from 60.0s to 300.0s
+- Removed group cog: mm
+  - Mini-Match-related commands no longer in use
+- Added slash command: bot messagefilecheck
+  - (Administrator Only) Checks the contents of the bot's misc/messages.py file
+- Added group cog: staff
+  - Added slash command: application
+    - Apply to be a part of the staff team in AJ's Paradise
+
 
 """]
 
 WELCOME_MESSAGE = """
 
-# Welcome to **{0.guild.name}**!
+# Welcome to AJ's Paradise!
 
-Hello {0.mention} (Member **#{0.guild.member_count}**), and welcome to **{0.guild.name}**!
+Hello {0.mention} (Member **#{0.guild.member_count}**), and welcome to **AJ's Paradise**!
 
-{0.guild.name} is a welcoming hub for gamers, music lovers, and all sorts of people looking to connect, unwind, and have a blast together. Engage in lively conversations, dive into epic gaming sessions, make a new friend or two, or simply unwind with the cool community.
+AJ's Paradise is a welcoming hub for gamers, music lovers, and all sorts of people looking to connect, unwind, and have a blast together. Engage in lively conversations, dive into epic gaming sessions, make a new friend or two, or simply unwind with the cool community.
 
-You also stand to earn rewards simply by chatting in the server: **400 Robux** for every 10 message levels (no spamming)!
+To the (Roblox) gamers, there are many perks to enjoy and rewards to earn! Robux giveaways are hosted in the server **every 2 weeks**; join and stand to win at least **400 Robux** from each giveaway! You also stand to earn rewards simply by chatting in the server: **400 Robux** for every 10 message levels (no spamming)!
 
 To learn more about the server, feel free to watch this video: https://www.youtube.com/watch?v=ZVREJBOaSEg
 
@@ -45,7 +44,7 @@ I also have a YouTube channel ([**@AJGoh**](<https://www.youtube.com/@ajgoh>)) w
 With that all said, I hope you will have a good time in the server. Take care and have fun!
 
 Best regards,
-AJ Goh, Owner of {0.guild.name}.
+AJ Goh, Owner of AJ's Paradise
 
 """
 
@@ -66,7 +65,7 @@ If you are a Staff Team member of AJ's Paradise, you may begin work whenever you
 Besides that, take care and have fun!
 
 Yours sincerely,
-AJ Goh, Owner of {0.guild.name}.
+AJ Goh, Owner of AJ's Paradise
 
 """
 
@@ -85,9 +84,9 @@ GOODBYE_MESSAGE = """
 
 # We're sorry to see you go...
 
-Perhaps you lost interest in {0.guild.name}, or maybe you forgot what it was about...
+Perhaps you lost interest in AJ's Paradise, or maybe you forgot what it was about...
 
-{0.guild.name} is a Discord server where gamers come together to connect, game, and hang out together, while participating in fortnightly Robux giveaways and fun events for attractive prizes.
+AJ's Paradise is a Discord server where gamers come together to connect, game, and hang out together, while participating in fortnightly Robux giveaways and fun events for attractive prizes.
 
 If you wish, you can always rejoin here: https://discord.gg/ZZNrbbH33U
 
@@ -96,7 +95,7 @@ Check out my YouTube channel here: https://www.youtube.com/c/ajgoh
 You may rejoin anytime you like, or even invite your friends over too! But until then, we wish you all the best and hope to see you again sometime.
 
 Well wishes,
-{0.guild.name}.
+AJ's Paradise
 
 """
 
@@ -134,3 +133,74 @@ Below are a few rules and guidelines of this server. Please make sure to follow 
 Feel free to click the button below to view the full list of rules, along with their punishments and other information about them.
 
 """
+
+#   Modal label limit = 45; Modal placeholder limit = 100
+
+#   0                                                                                                   1
+#   0         1         2         3         4         5         6         7         8         9         0
+#   01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+#                                                |                                                      |
+
+STAFF_APPS_QNS = {
+
+"mod": [
+    "Share a bit about yourself...",
+    "Explain a few bot commands or functions.",
+    "How do you handle problems in the server?",
+    "What would you do first upon getting hired?",
+    "Is there anything else you want to share?"
+],
+"modp": [
+    "Describe your strengths and weaknesses, why you want to be staff, how much experience you have...",
+    "Bots, commands, features, admin, etc. List down and explain the ones you know, the more the better.",
+    "What are some possible issues that may arise in the server, and how would you solve them?",
+    "How will you contribute to AJ's Paradise?",
+    "Is there something you would like us to know? If not, feel free to leave this field blank."
+],
+
+"com": [
+    "Share a bit about yourself...",
+    "How do you increase server activity?",
+    "How do you grow the server?",
+    "What would you do first upon getting hired?",
+    "Is there anything else you want to share?"
+],
+"comp": [
+    "Describe your strengths and weaknesses, why you want to be staff, how much experience you have...",
+    "What are some ways you can engage the server community and keep the server active?",
+    "How many people can you attract to the server in a week, and how are you going to achieve that?",
+    "How will you contribute to AJ's Paradise?",
+    "Is there something you would like us to know? If not, feel free to leave this field blank."
+],
+
+"acm": [
+    "Share a bit about yourself...",
+    "Which clan(s) do you want to manage, and how?",
+    "How would you conduct clan tryouts?",
+    "What would you do first upon getting hired?",
+    "Is there anything else you want to share?"
+],
+"acmp": [
+    "Describe your strengths and weaknesses, why you want to be staff, how much experience you have...",
+    "Feel free to choose one of more clans to manage, and describe what you can do in this field.",
+    "You may think about how you can test one's skills, abilities, and commitment to the clan.",
+    "How will you contribute to AJ's Paradise?",
+    "Is there something you would like us to know? If not, feel free to leave this field blank."
+],
+
+"sem": [
+    "Share a bit about yourself...",
+    "What makes an event enjoyable for players?",
+    "How do you handle problems during an event?",
+    "What would you do first upon getting hired?",
+    "Is there anything else you want to share?"
+],
+"semp": [
+    "Describe your strengths and weaknesses, why you want to be staff, how much experience you have...",
+    "What are some key elements that make an event enjoyable, and how do you apply them into your events?",
+    "What are some possible issues that may arise while hosting an event, and how would you solve them?",
+    "How will you contribute to AJ's Paradise?",
+    "Is there something you would like us to know? If not, feel free to leave this field blank."
+]
+
+}

@@ -1,0 +1,45 @@
+import discord
+from discord import app_commands, ui
+from discord.ext import commands
+
+class myModal(ui.Modal, title="test modal"):
+   print("mt2")
+   a1 = ui.TextInput(
+      label="first question"
+      )
+   print("mt3")
+   a2 = ui.TextInput(
+      label="second question",
+      placeholder="a placeholder"
+      )
+   print("mt4")
+   a3 = ui.TextInput(
+      label="third question",
+      placeholder="another placeholder",
+      style=discord.TextStyle.paragraph,
+      max_length=1000,
+      required=False
+   )
+   print("mt5")
+   async def on_submit(self, interaction: discord.Interaction):
+      print("mt6")
+      a = [self.a1, self.a2, self.a3]
+      print(a)
+      print("mt7")
+      print([t.value for t in a])
+      print("mt8")
+      await interaction.response.send_message("modal successful")
+      print("mt9")
+
+class SlashCmd_Modal(commands.GroupCog, group_name="modal"):
+  def __init__(self, bot):
+    self.bot = bot
+
+  @app_commands.command(name="test", description="A Discord modal test command.")
+  async def application(self, interaction: discord.Interaction):
+    print("mt0")
+    await interaction.response.send_modal(myModal())
+    print("mt1")
+
+async def setup(bot):
+  await bot.add_cog(SlashCmd_Modal(bot))

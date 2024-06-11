@@ -43,13 +43,13 @@ In "Version X.Y.Z":
 
 ## Change Log
 
-VERSION 0.0.0 (15 JULY 2023 1630 GMT)
+### VERSION 0.0.0 (15 JULY 2023 1630 GMT)
 
 - Created the AJ's Paradise#7500 Bot
 - Added text trigger: @1129602728050565311
   - Tests whether the bot is online
 
-VERSION 0.1.0 (16 JULY 2023 1530 GMT)
+### VERSION 0.1.0 (16 JULY 2023 1530 GMT)
 
 - Added different DM-on-join messages for each of the following:
   - AJ's Paradise
@@ -61,7 +61,7 @@ VERSION 0.1.0 (16 JULY 2023 1530 GMT)
 - Added slash command: ping
   - Tests the latency of the bot in miliseconds
 
-VERSION 0.2.0 (17 JULY 2023 0000 GMT)
+### VERSION 0.2.0 (17 JULY 2023 0000 GMT)
 
 - Successfully fixed slash commands (they work now)
 - Added command prefix: !aj
@@ -73,7 +73,7 @@ VERSION 0.2.0 (17 JULY 2023 0000 GMT)
 - Added slash command: changelog
   - Shows the updates for the latest version of the bot
 
-VERSION 0.3.0 (17 JULY 2023 0800 GMT)
+### VERSION 0.3.0 (17 JULY 2023 0800 GMT)
 
 - Implemented use of cogs in the code
 - Added text trigger: goodbye, bye
@@ -81,28 +81,28 @@ VERSION 0.3.0 (17 JULY 2023 0800 GMT)
 - Added slash command: 8ball
   - Generates a random response to a question input
 
-VERSION 0.3.1 (18 JULY 2023 1200 GMT)
+### VERSION 0.3.1 (18 JULY 2023 1200 GMT)
 
 - Fixed slash command: 8ball
   - Problem was at: interaction.response.send_Message()
-  - This problem cost me my sanity for an entire day; all I had to do was change an uppercase "M" to a lowercase "m" :(
+  - This problem cost me my sanity for an entire day; all I had to do was change an uppercase "M" to a lowercase "m"...
 
-VERSION 0.4.0 (18 JULY 2023 1730 GMT)
+### VERSION 0.4.0 (18 JULY 2023 1730 GMT)
 
 - Added text command: afk
   - Sets an AFK status, which will show when @mentioned
 
-VERSION 0.5.0 (19 JULY 2023 1700 GMT)
+### VERSION 0.5.0 (19 JULY 2023 1700 GMT)
 
 - Added slash command: rng
   - Generates a random integer between 2 integer inputs
 
-VERSION 0.6.0 (25 JULY 2023 1500 GMT)
+### VERSION 0.6.0 (25 JULY 2023 1500 GMT)
 
 - Added slash command: ninetynine
   - Starts the game 'ninetynine' by AJ Goh
 
-VERSION 0.7.0 (14 AUGUST 2023 0300 GMT)
+### VERSION 0.7.0 (14 AUGUST 2023 0300 GMT)
 
 - Added slash command: reqsponsor
   - Sends a request to host a sponsored item in AJ's Paradise
@@ -121,7 +121,7 @@ VERSION 0.7.0 (14 AUGUST 2023 0300 GMT)
   - Group cog "message": setlevel, setxp, stats, leaderboard
   - Group cog "mm" is empty for now
 
-VERSION 0.8.0 (16 AUGUST 2023 1400 GMT)
+### VERSION 0.8.0 (16 AUGUST 2023 1400 GMT)
 
 - Added slash command: reqfeature
   - Sends a request to add a feature to the server bot.
@@ -139,7 +139,7 @@ VERSION 0.8.0 (16 AUGUST 2023 1400 GMT)
   - Added slash command: mm grandreset
     - (Administrator Only) Resets all users' and teams' scores
 
-VERSION 0.9.0 (23 AUGUST 2023 1200 GMT)
+### VERSION 0.9.0 (23 AUGUST 2023 1200 GMT)
 
 - Added slash command: rules
   - Sends an embed with the first 10 rules of AJ's Paradise, along with a button linked to the full list of rules
@@ -152,11 +152,11 @@ VERSION 0.9.0 (23 AUGUST 2023 1200 GMT)
 - Added "Nine nines" difficulty for ninetynine
   - Max value (Goal) for this difficulty is 999999999
 
-VERSION 1.0.0 (31 AUGUST 2023 1400 GMT)
+### VERSION 1.0.0 (31 AUGUST 2023 1400 GMT)
 
 - Officially released AJ's Paradise server bot to the AJ's Paradise Discord server
 
-VERSION 1.1.0 (3 SEPTEMBER 2023 1415 GMT)
+### VERSION 1.1.0 (3 SEPTEMBER 2023 1415 GMT)
 
 - Added text trigger: hello, hi, sup
   - Bot responds with: Hello!
@@ -177,7 +177,7 @@ VERSION 1.1.0 (3 SEPTEMBER 2023 1415 GMT)
 - Added slash command: timestamp
   - Sends the timestamp for a date and time input
 
-VERSION 1.2.0 (27 SEPTEMBER 2023 1630 GMT)
+### VERSION 1.2.0 (27 SEPTEMBER 2023 1630 GMT)
 
 - Added slash command: message setmulti
   - (Administrator Only) Sets the message XP multiplier
@@ -187,7 +187,7 @@ VERSION 1.2.0 (27 SEPTEMBER 2023 1630 GMT)
   - mm syncpoints
   - mm grandreset
 
-VERSION 1.3.0 (20 NOVEMBER 2023 1330 GMT)
+### VERSION 1.3.0 (20 NOVEMBER 2023 1330 GMT)
 
 - Fixed text triggers
 - Added text trigger react-to-delete feature:
@@ -197,7 +197,7 @@ VERSION 1.3.0 (20 NOVEMBER 2023 1330 GMT)
 - Updated on-join welcome message
 - Updated rules embed
 
-VERSION 1.4.0 (11 DECEMBER 2023 1415 GMT)
+### VERSION 1.4.0 (11 DECEMBER 2023 1415 GMT)
 
 - Added slash command: dm
   - (Administrator Only) DMs a user
@@ -205,7 +205,7 @@ VERSION 1.4.0 (11 DECEMBER 2023 1415 GMT)
   - Added keywords in "date" field: yesterday, ytd, today, tdy, tomorrow, tmr
   - Added keywords in "time" field: now
 
-VERSION 2.0.0 (6 JANUARY 2024 0900 GMT)
+### VERSION 2.0.0 (6 JANUARY 2024 0900 GMT)
 
 - Successfully migrated from Replit to Pylex for bot hosting
   - Replit no longer offering free hosting from 2024
@@ -215,7 +215,7 @@ VERSION 2.0.0 (6 JANUARY 2024 0900 GMT)
 - Added backup system for databases: message, mm
   - Backups occur every 48 hours
 
-VERSION 2.0.1 (26 FEBRUARY 2024 1600 GMT)
+### VERSION 2.0.1 (26 FEBRUARY 2024 1600 GMT)
 
 - Added slash command: msg
   - (Administrator Only) Sends a message
@@ -227,3 +227,13 @@ VERSION 2.0.1 (26 FEBRUARY 2024 1600 GMT)
   - Added slash command: request sponsor
     - Requests to host a sponsored item in AJ's Paradise
 - Increased text trigger react-to-delete timeout countdown from 60.0s to 300.0s
+
+### VERSION 2.1.0 (10 JUNE 2024 2000 GMT)
+
+- Removed group cog: mm
+  - Mini-Match-related commands no longer in use
+- Added slash command: bot messagefilecheck
+  - (Administrator Only) Checks the contents of the bot's misc/messages.py file
+- Added group cog: staff
+  - Added slash command: application
+    - Apply to be a part of the staff team in AJ's Paradise
