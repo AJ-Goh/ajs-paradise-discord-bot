@@ -25,7 +25,7 @@ class SlashCmd_Request(commands.GroupCog, group_name="request"):
     await interaction.response.send_message(embed=e, ephemeral=True)
 
   @app_commands.command(name="poll", description="Request a question for a daily poll in AJ's Paradise.")
-  @app_commands.describe(feature = "State and describe the question you would like to request.")
+  @app_commands.describe(question = "State and describe the question you would like to request.")
   async def poll(self, interaction: discord.Interaction, question: str):
     aj_user = self.bot.get_user(832811319957651457)
     await aj_user.create_dm()
