@@ -1,7 +1,8 @@
 # List of commands here:
 # 1. feature
-# 2. sponsor
-# 3. drop
+# 2. poll
+# 3. sponsor
+# 4. drop
 
 import discord
 from discord.ext import commands
@@ -17,11 +18,23 @@ class SlashCmd_Request(commands.GroupCog, group_name="request"):
   async def feature(self, interaction: discord.Interaction, feature: str):
     aj_user = self.bot.get_user(832811319957651457)
     await aj_user.create_dm()
-    await aj_user.dm_channel.send(f"## 🔵 Feature Request\n- **USER**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **REQUEST**  {feature}")
+    await aj_user.dm_channel.send(f"## 💚 Feature Request\n- **USER**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **REQUEST**  {feature}")
     req_channel = self.bot.get_channel(1211678134412517427)
     await req_channel.send(f"## ⚙️ Feature Request\n- **USER**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **REQUEST**  {feature}")
     e = discord.Embed(title="Feature Request Sent ✓", description=f"- {feature}", colour=0xffcc00)
     await interaction.response.send_message(embed=e, ephemeral=True)
+
+  @app_commands.command(name="poll", description="Request a question for a daily poll in AJ's Paradise.")
+  @app_commands.describe(feature = "State and describe the question you would like to request.")
+  async def poll(self, interaction: discord.Interaction, question: str):
+    aj_user = self.bot.get_user(832811319957651457)
+    await aj_user.create_dm()
+    await aj_user.dm_channel.send(f"## 💙 Poll Request\n- **USER**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **QUESTION**  {question}")
+    req_channel = self.bot.get_channel(1211678134412517427)
+    await req_channel.send(f"## 📅 Poll Request\n- **USER**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **QUESTION**  {question}")
+    e = discord.Embed(title="Poll Request Sent ✓", description=f"- {question}", colour=0xffcc00)
+    await interaction.response.send_message(embed=e, ephemeral=True)
+
 
   @app_commands.command(name="sponsor", description="Request to host a sponsored item in AJ's Paradise.")
   @app_commands.describe(
@@ -39,7 +52,7 @@ class SlashCmd_Request(commands.GroupCog, group_name="request"):
   async def sponsor(self, interaction: discord.Interaction, type: str, details: str, datetime: str, prize: str, numberofwinners: int):
     aj_user = self.bot.get_user(832811319957651457)
     await aj_user.create_dm()
-    await aj_user.dm_channel.send(f"## 🟣 Sponsor Request\n- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **TYPE**  {type}\n- **DETAILS**  {details}\n- **DATE AND TIME**  {datetime}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}")
+    await aj_user.dm_channel.send(f"## 💜 Sponsor Request\n- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **TYPE**  {type}\n- **DETAILS**  {details}\n- **DATE AND TIME**  {datetime}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}")
     req_channel = self.bot.get_channel(1211678134412517427)
     await req_channel.send(f"## 💸 Sponsor Request\n- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **TYPE**  {type}\n- **DETAILS**  {details}\n- **DATE AND TIME**  {datetime}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}")
     e = discord.Embed(title="Sponsor Request Sent ✓", description=f"- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **TYPE**  {type}\n- **DETAILS**  {details}\n- **DATE AND TIME**  {datetime}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}", colour=0xffcc00)
@@ -54,7 +67,7 @@ class SlashCmd_Request(commands.GroupCog, group_name="request"):
   async def drop(self, interaction: discord.Interaction, details: str, prize: str, numberofwinners: int):
     aj_user = self.bot.get_user(832811319957651457)
     await aj_user.create_dm()
-    await aj_user.dm_channel.send(f"## 🔴 Drop Request\n- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **DETAILS**  {details}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}")
+    await aj_user.dm_channel.send(f"## ❤️ Drop Request\n- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **DETAILS**  {details}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}")
     req_channel = self.bot.get_channel(1211678134412517427)
     await req_channel.send(f"## 💰 Drop Request\n- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **DETAILS**  {details}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}")
     e = discord.Embed(title="Drop Request Sent ✓", description=f"- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **DETAILS**  {details}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}", colour=0xffcc00)

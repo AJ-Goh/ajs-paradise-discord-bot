@@ -237,3 +237,8 @@ In "Version X.Y.Z":
 - Added group cog: staff
   - Added slash command: application
     - Apply to be a part of the staff team in AJ's Paradise
+
+### VERSION 2.2.0 (19 JUNE 2024 1900 GMT)
+
+- Added slash command: request poll
+  - Requests a question for a daily poll in AJ's Paradise

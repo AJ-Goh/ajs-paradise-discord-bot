@@ -9,19 +9,13 @@
 # 8. STAFF_APPS_QNS
 
 CHANGELOG_LIST = [
-  "Version 2.1.0", # VERSION NUMBER (X.Y.Z)
-  "10 June 2024", # DATE (FULL)
-  "2000", # TIME (24HR, GMT)
+  "Version 2.2.0", # VERSION NUMBER (X.Y.Z)
+  "19 June 2024", # DATE (FULL)
+  "1900", # TIME (24HR, GMT)
   """
 
-- Removed group cog: mm
-  - Mini-Match-related commands no longer in use
-- Added slash command: bot messagefilecheck
-  - (Administrator Only) Checks the contents of the bot's misc/messages.py file
-- Added group cog: staff
-  - Added slash command: application
-    - Apply to be a part of the staff team in AJ's Paradise
-
+- Added slash command: request poll
+  - Requests a question for a daily poll in AJ's Paradise
 
 """]
 
