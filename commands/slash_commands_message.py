@@ -306,9 +306,9 @@ class SlashCmds_Message(commands.GroupCog, group_name="message"):
                 LevelData = json.load(infile)
             
             if len(ctx.content) <= 100:
-                LevelData[str(ctx.author.id)]['Exp'] += int((((len(ctx.content))/random.randint(5,15))+10)*MultiXP*BoostXP)
+                LevelData[str(ctx.author.id)]['Exp'] += int((((len(ctx.content))/random.randint(5,20))+5)*MultiXP*BoostXP)
             elif len(ctx.content) > 100:
-                LevelData[str(ctx.author.id)]['Exp'] += int((random.randint(16,30))*MultiXP*BoostXP)
+                LevelData[str(ctx.author.id)]['Exp'] += int((random.randint(10,25))*MultiXP*BoostXP)
 
             if LevelData[str(ctx.author.id)]['Exp'] >= LevelData[str(ctx.author.id)]['GoalExp']:
                 LevelData[str(ctx.author.id)]['Level'] += 1
