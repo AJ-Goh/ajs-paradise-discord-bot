@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from misc.keep_alive import keep_alive
 from misc.messages import WELCOME_MESSAGE, WELCOME_MESSAGE_STAFF, WELCOME_MESSAGE_NONE, NINETYNINE_DESC, SERVER_RULES
+from misc.images import RULEBOOK, NINETYNINE
 
 # INTENTS AND TOKEN
 
@@ -107,35 +108,35 @@ async def on_message(msg):
   # Subscribe
   elif keywords(m, ["sub", "subs", "subbing", "subscribe", "subscriber", "subscribers", "subscribing"]):
     e = discord.Embed(description="Subscribe to the AJ Goh YouTube channel to earn exclusive perks in the server! Feel free to proceed to <#972449159867138048> to learn more about those perks, and to <#972449220328046642> to get them!", colour=0xffcc00)
-    e.set_footer(text="This embed was sent due to the 'subscribe' trigger, react with any emoji to dismiss this embed.")
+    e.set_footer(text="This embed was sent due to the 'subscribe' trigger.")
     reply_type = "embed"
     reply_content = e
     
   # Boost
   elif keywords(m, ["boost", "booster", "boosters", "boosting"]):
     e = discord.Embed(description="Boost this Discord server to earn epic rewards! Feel free to proceed to <#1137638418071957564> to learn more about them!", colour=0xffcc00)
-    e.set_footer(text="This embed was sent due to the 'boost' trigger, react with any emoji to dismiss this embed.")
+    e.set_footer(text="This embed was sent due to the 'boost' trigger.")
     reply_type = "embed"
     reply_content = e
     
   # Giveaway
   elif keywords(m, ["gw", "giveaway", "giveaways"]):
     e = discord.Embed(description="Every 2 weeks, a giveaway for **400 Robux** is hosted in AJ's Paradise!\n \nSimply head to <#957854693688746004> to join the current giveaway. Take note that you need to send **20 messages** in the server to be **eligible** to join one, so if you have not yet met that requirement, feel free start or join a conversation in <#940996564384628767>!", colour=0xffcc00)
-    e.set_footer(text="This embed was sent due to the 'giveaway' trigger, react with any emoji to dismiss this embed.")
+    e.set_footer(text="This embed was sent due to the 'giveaway' trigger.")
     reply_type = "embed"
     reply_content = e
     
   # Message
   elif keywords(m, ["msg", "msgs", "message", "messages"]):
     e = discord.Embed(description="Redeem **400 Robux** for every 10 message levels!\n \nChat in this server to increase your message level! You may use the </message stats:1139339144787673281> command in <#940996564384628768> to check your message level.", colour=0xffcc00)
-    e.set_footer(text="This embed was sent due to the 'message' trigger, react with any emoji to dismiss this embed.")
+    e.set_footer(text="This embed was sent due to the 'message' trigger.")
     reply_type = "embed"
     reply_content = e
     
   # Sponsor
   elif keywords(m, ["sponsor", "sponsors", "sponsored"]):
     e = discord.Embed(description="Host and announce a sponsored item in AJ's Paradise! Be it a giveaway, an event, a mini game, or any sort of item, simply use </reqsponsor:1140139050934743181> in <#940996564384628768> to request to host a sponsored item in the server!\n \nYou may also view past and upcoming sponsored items in <#1100423394526240778>.", colour=0xffcc00)
-    e.set_footer(text="This embed was sent due to the 'sponsor' trigger, react with any emoji to dismiss this embed.")
+    e.set_footer(text="This embed was sent due to the 'sponsor' trigger.")
     reply_type = "embed"
     reply_content = e
 
@@ -143,9 +144,9 @@ async def on_message(msg):
   if reply_type == None:
     return
   if reply_type == "text":
-    reply_msg = await msg.reply(reply_content)
+    reply_msg = await msg.reply(reply_content, ephemeral=True)
   if reply_type == "embed":
-    reply_msg = await msg.reply(embed=reply_content)
+    reply_msg = await msg.reply(embed=reply_content, ephemeral=True)
 
   # Wait for reactions (300s)
   def check(reaction, user):
@@ -227,6 +228,7 @@ async def rules(interaction: discord.Interaction):
     description = SERVER_RULES,
     colour = 0xffcc00
   )
+  embed.set_thumbnail(url=RULEBOOK)
   view = RulesView()
   view.add_item(discord.ui.Button(
     label = "View All Rules",
@@ -612,6 +614,7 @@ async def Game(interaction: discord.Interaction, difficulty: str):
                         colour=0xffffff)
       e.set_author(name="ninetynine")
       e.set_footer(text="Created by AJ Goh")
+      e.set_image(url=NINETYNINE)
       await interaction.response.send_message(embed=e)
 
     else: 

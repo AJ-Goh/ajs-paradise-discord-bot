@@ -242,3 +242,16 @@ In "Version X.Y.Z":
 
 - Added slash command: request poll
   - Requests a question for a daily poll in AJ's Paradise
+
+### VERSION 2.3.0 (27 JUNE 2024 1700 GMT)
+
+- Rereated a separate file to contain image links
+  - Images hosted by ImgBB
+  - Added thumbnail to rules command
+  - Added image to ninetynine command
+  - Added images to message commands
+- Reworked how message XP is gained from each message
+- Added slash command: message xpdrop
+  - (Administrator Only) Summon an XP drop
+- Added slash command: message xpcollect
+  - Collect an XP drop

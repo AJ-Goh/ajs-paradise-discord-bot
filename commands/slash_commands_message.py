@@ -5,19 +5,31 @@
 # 4. stats
 # 5. leaderboard
 # 6. addclaim
+# 7. xpdrop
+# 8. xpcollect
 
 import discord, json, random
 from discord.ext import commands
 from discord import app_commands
+from misc.images import LEVELUP, XPDROP
 
 # << Data >> #
 
 MultiXP = 1
-FooterText = "Redeem 400 Robux for every 10 message levels!"
+FooterText = "Redeem 400 Robux for every 20 message levels!"
+
+XPDropEnabled = False
+XPDropClaimed = set()
+XPDropAmount = 0
+XPDropCollectLimit = 1
 
 Administrators = [
     641724025780830220,
     832811319957651457
+]
+
+Boosters = [
+    987196304885153803
 ]
 
 LevelRoles = {
@@ -204,7 +216,81 @@ class SlashCmds_Message(commands.GroupCog, group_name="message"):
             with open('data/data_messages.json', mode='w') as outfile:
                 json.dump(data, outfile, indent=2)
             await interaction.response.send_message(embed=discord.Embed(description=f"Successfully increased <@{str(user.id)}>'s prize claim log from {data[str(user.id)]['Claims']-quantity} to {data[str(user.id)]['Claims']}.", color=0x00ff00))
-  
+
+    # << Summon XP Drop >> #
+    @app_commands.command(name="xpdrop", description="(Administrator Only) Summon an XP drop.")
+    @app_commands.describe(amount="State the amount of XP to drop", collectlimit="State the maximum number of users who can collect the drop.")
+    async def xpdrop(self, interaction: discord.Interaction, amount: int, collectlimit: int):
+        print(amount,collectlimit)
+        global XPDropEnabled, XPDropClaimed, XPDropAmount, XPDropCollectLimit
+        if interaction.user.id not in Administrators:
+            Embed = discord.Embed(description="You are not an administrator.", color=0xff0000)
+            await interaction.response.send_message(embed=Embed)
+            return
+        elif XPDropEnabled == True:
+            XPDropEnabled = False
+            Embed = discord.Embed(description="XP Drop successfully ended.", color=0x00ff00)
+            await interaction.response.send_message(embed=Embed)
+            return
+        else:
+            XPDropEnabled = True
+            XPDropClaimed = set()
+            XPDropAmount = amount
+            XPDropCollectLimit = collectlimit
+            if collectlimit == 1:
+                collect = "collect"
+            else:
+                collect = "collects"
+            e = discord.Embed(
+                title=f"{amount} XP Drop!",
+                description=f"A sum of **{amount} XP** has been dropped! Use the </message xpcollect:1193015724264923169> command to collect your XP!\n \n(Ends after **{collectlimit}** {collect})",
+                colour=0xffcc00
+            )
+            e.set_footer(text=FooterText)
+            e.set_image(url=XPDROP)
+            await interaction.response.send_message(embed=e)
+    
+    # << Collect XP Drop >> #
+    @app_commands.command(name="xpcollect", description="Collect an XP Drop.")
+    async def xpcollect(self, interaction: discord.Interaction):
+        global XPDropEnabled, XPDropClaimed, XPDropAmount, XPDropCollectLimit
+        if XPDropEnabled == False:
+            Embed = discord.Embed(description="There are currently no XP drops to collect.", color=0xff0000)
+            await interaction.response.send_message(embed=Embed, ephemeral=True)
+            return
+        elif interaction.user.id in XPDropClaimed:
+            Embed = discord.Embed(description="You already collected the XP drop!", color=0xff0000)
+            await interaction.response.send_message(embed=Embed, ephemeral=True)
+            return
+        else:
+            Embed = discord.Embed(description="Collecting XP...", color=0xff0000)
+            await interaction.response.send_message(embed=Embed)
+
+            with open('data/data_messages.json', mode='r') as infile:
+                    LevelData = json.load(infile)
+
+            try:
+                LevelData[str(interaction.user.id)]['Exp'] += XPDropAmount
+
+                with open('data/data_messages.json', mode='w') as outfile:
+                        json.dump(LevelData, outfile, indent=2)
+
+                XPDropClaimed.add(interaction.user.id)
+                EmbedEdited = discord.Embed(description=f"Successfully collected {XPDropAmount} XP", color=0x00ff00)
+                if len(XPDropClaimed) >= XPDropCollectLimit:
+                    XPDropEnabled = False
+                    XPDropClaimed = set()
+                    XPDropAmount = 0
+                    XPDropCollectLimit = 1
+                await interaction.edit_original_response(embed=EmbedEdited)
+
+            except Exception as e:
+                print("e0")
+                Embed = discord.Embed(description=f"An unexpected error occured: {e}", color=0xff0000)
+                print("e1")
+                await interaction.edit_original_response(embed=Embed)
+                print("e2")
+
     # << On Message >> #
     @commands.Cog.listener()
     async def on_message(self, ctx: discord.Message):
@@ -212,13 +298,17 @@ class SlashCmds_Message(commands.GroupCog, group_name="message"):
             return
         else:
             self.GetUser(ctx.author)
+            if any(role.id in Boosters for role in ctx.author.roles):
+                BoostXP = 1.2
+            else:
+                BoostXP = 1
             with open('data/data_messages.json', mode='r') as infile:
                 LevelData = json.load(infile)
             
-            if len(ctx.content) <= 250:
-                LevelData[str(ctx.author.id)]['Exp'] += (len(ctx.content)*MultiXP)//random.randint(12,15)
-            elif len(ctx.content) > 250:
-                LevelData[str(ctx.author.id)]['Exp'] += random.randint(16*MultiXP,20*MultiXP)
+            if len(ctx.content) <= 100:
+                LevelData[str(ctx.author.id)]['Exp'] += int((((len(ctx.content))/random.randint(5,15))+10)*MultiXP*BoostXP)
+            elif len(ctx.content) > 100:
+                LevelData[str(ctx.author.id)]['Exp'] += int((random.randint(16,30))*MultiXP*BoostXP)
 
             if LevelData[str(ctx.author.id)]['Exp'] >= LevelData[str(ctx.author.id)]['GoalExp']:
                 LevelData[str(ctx.author.id)]['Level'] += 1
@@ -230,6 +320,7 @@ class SlashCmds_Message(commands.GroupCog, group_name="message"):
                 else:
                     time = "times"
                 Embed.set_footer(text=FooterText+f" (Claimed {LevelData[str(ctx.author.id)]['Claims']} {time})")
+                Embed.set_image(url=LEVELUP)
                 await ctx.channel.send(content=f"<@{ctx.author.id}>", embed=Embed)
 
             with open('data/data_messages.json', mode='w') as outfile:

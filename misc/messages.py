@@ -9,13 +9,21 @@
 # 8. STAFF_APPS_QNS
 
 CHANGELOG_LIST = [
-  "Version 2.2.0", # VERSION NUMBER (X.Y.Z)
-  "19 June 2024", # DATE (FULL)
-  "1900", # TIME (24HR, GMT)
+  "Version 2.3.0", # VERSION NUMBER (X.Y.Z)
+  "28 June 2024", # DATE (FULL)
+  "1700", # TIME (24HR, GMT)
   """
 
-- Added slash command: request poll
-  - Requests a question for a daily poll in AJ's Paradise
+- Rereated a separate file to contain image links
+  - Images hosted by ImgBB
+  - Added thumbnail to rules command
+  - Added image to ninetynine command
+  - Added images to message commands
+- Reworked how message XP is gained from each message
+- Added slash command: message xpdrop
+  - (Administrator Only) Summon an XP drop
+- Added slash command: message xpcollect
+  - Collect an XP drop
 
 """]
 
@@ -27,7 +35,7 @@ Hello {0.mention} (Member **#{0.guild.member_count}**), and welcome to **AJ's Pa
 
 AJ's Paradise is a welcoming hub for gamers, music lovers, and all sorts of people looking to connect, unwind, and have a blast together. Engage in lively conversations, dive into epic gaming sessions, make a new friend or two, or simply unwind with the cool community.
 
-To the (Roblox) gamers, there are many perks to enjoy and rewards to earn! Robux giveaways are hosted in the server **every 2 weeks**; join and stand to win at least **400 Robux** from each giveaway! You also stand to earn rewards simply by chatting in the server: **400 Robux** for every 10 message levels (no spamming)!
+To the (Roblox) gamers, there are many perks to enjoy and rewards to earn! Robux giveaways are hosted in the server **every 2 weeks**; join and stand to win at least **400 Robux** from each giveaway! You also stand to earn rewards simply by chatting in the server: **400 Robux** for every 20 message levels (no spamming)!
 
 To learn more about the server, feel free to watch this video: https://www.youtube.com/watch?v=ZVREJBOaSEg
 
