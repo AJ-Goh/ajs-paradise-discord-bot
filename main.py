@@ -154,7 +154,7 @@ async def on_message(msg):
   if reply_type == None:
     return
   if reply_type == "text":
-    reply_msg = await msg.reply(reply_content, delete_after=10.0)
+    reply_msg = await msg.reply(reply_content)
   if reply_type == "embed":
     reply_msg = await msg.reply(embed=reply_content, delete_after=10.0)
 
