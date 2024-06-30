@@ -138,7 +138,7 @@ async def on_message(msg):
     
   # Message
   elif keywords(m, ["msg", "msgs", "message", "messages"]):
-    e = discord.Embed(description="Redeem **400 Robux** for every 10 message levels!\n \nChat in this server to increase your message level! You may use the </message stats:1139339144787673281> command in <#940996564384628768> to check your message level.", colour=0xffcc00)
+    e = discord.Embed(description="Redeem **400 Robux** for every 20 message levels!\n \nChat in this server to increase your message level! You may use the </message stats:1139339144787673281> command in <#940996564384628768> to check your message level.", colour=0xffcc00)
     e.set_footer(text="This embed was sent due to the 'message' trigger.")
     reply_type = "embed"
     reply_content = e
