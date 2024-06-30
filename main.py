@@ -78,7 +78,17 @@ def files_check(directory, condition):
 
 @bot.event
 async def on_message(msg):
-  print("🆕 Message: ", msg.content)
+
+  if msg.author == bot.user:
+    a = str(msg.author)[:-5]
+  else:
+    a = str(msg.author)
+
+  if msg.content != "":
+    if len(a) > 15:
+      print(f"💬 @{a[:12]+'...  '}"+ msg.content)
+    else:
+      print(f"💬 @{a + (17-len(a))*' '}"+ msg.content)
 
   TIME_TODAY = datetime.now().strftime("%Y-%m-%d")
   DATE_TODAY = datetime.now().strftime("%d")
@@ -96,12 +106,12 @@ async def on_message(msg):
   reply_content = None
   
   # Hello
-  if keywords(m, ["hi", "hello", "sup"]):
+  if keywords(m, ["hi", "hello", "sup", "wsg", "wsp", "yo"]):
     reply_type = "text"
     reply_content = "Hello!"
     
   # Goodbye
-  elif keywords(m, ["bye", "goodbye", "cya"]):
+  elif keywords(m, ["bye", "cya"]):
     reply_type = "text"
     reply_content = "Goodbye!"
     
@@ -144,9 +154,9 @@ async def on_message(msg):
   if reply_type == None:
     return
   if reply_type == "text":
-    reply_msg = await msg.reply(reply_content, ephemeral=True)
+    reply_msg = await msg.reply(reply_content, delete_after=10.0)
   if reply_type == "embed":
-    reply_msg = await msg.reply(embed=reply_content, ephemeral=True)
+    reply_msg = await msg.reply(embed=reply_content, delete_after=10.0)
 
   # Wait for reactions (300s)
   def check(reaction, user):
