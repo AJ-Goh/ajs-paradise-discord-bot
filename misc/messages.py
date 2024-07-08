@@ -111,7 +111,7 @@ The number shown at the start vary from 0 to the max value of the current diffic
 
 ```Easy Difficulty   →  Max Value 9\nMedium Difficulty →  Max Value 99\nHard Difficulty   →  Max Value 999```
 
-You are to to press the provided buttons to increase or decrease the number shown. When a number drops below 0 or exceeds the max value, the number will loop over (i.e.: number increase from 99 to 0, and vice versa). The buttons' values are hidden at first, and will be revealed when you win.
+You are to press the provided buttons to increase or decrease the number shown. When a number drops below 0 or exceeds the max value, the number will loop over (i.e.: number increase from 99 to 0, and vice versa). The buttons' values are hidden at first, and will be revealed when you win.
 
 The objective of this game is to use the buttons to change the number to show exactly the max value, while using the fewest number of moves. Good luck and enjoy!
 
