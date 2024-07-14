@@ -9,21 +9,21 @@
 # 8. STAFF_APPS_QNS
 
 CHANGELOG_LIST = [
-  "Version 2.3.0", # VERSION NUMBER (X.Y.Z)
-  "28 June 2024", # DATE (FULL)
-  "1700", # TIME (24HR, GMT)
+  "Version 2.4.0", # VERSION NUMBER (X.Y.Z)
+  "14 July 2024", # DATE (FULL)
+  "0500", # TIME (24HR, GMT)
   """
 
-- Rereated a separate file to contain image links
-  - Images hosted by ImgBB
-  - Added thumbnail to rules command
-  - Added image to ninetynine command
-  - Added images to message commands
-- Reworked how message XP is gained from each message
-- Added slash command: message xpdrop
-  - (Administrator Only) Summon an XP drop
-- Added slash command: message xpcollect
-  - Collect an XP drop
+- Added slash command: quote
+  - Quote someone's message
+- Edited slash command: dm
+  - Made the 'fetch' argument optional (Default: Text Input)
+- Edited slash command: msg
+  - Made the 'fetch' argument optional (Default: Text Input)
+  - Added the 'ai' optional argument (Default: False)
+    - Select whether to add the GohAI subtext
+  - Added the 'repeat' optional argument (Default: 1, Limit: 20)
+    - Input the number of times to send the message
 
 """]
 
@@ -39,7 +39,7 @@ To the (Roblox) gamers, there are many perks to enjoy and rewards to earn! Robux
 
 To learn more about the server, feel free to watch this video: https://www.youtube.com/watch?v=ZVREJBOaSEg
 
-Please view the list of rules in <#940996563789025313>, lest you get unknowingly punished for an accidental offense. If you have any suggestions or reports, you may proceed to <#1169516956811014144> or <#941002010088587295> respectively, or send a direct message to **@ajgoh** (on Discord).
+Please view the list of rules in <#940996563789025313>, lest you get unknowingly punished for an accidental offense. If you have any suggestions or reports, you may proceed to <#1169516956811014144>, or send a direct message to **@ajgoh** (on Discord).
 
 I also have a YouTube channel ([**@AJGoh**](<https://www.youtube.com/@ajgoh>)) where I post weekly Roblox content, as well as another YouTube channel ([**@AJGohMusic**](<https://www.youtube.com/@ajgohmusic>)) where I showcase my music creations. Consider subscribing to them to support me and gain additional perks in the server, as stated in <#972449159867138048>.
 

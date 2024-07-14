@@ -1,0 +1,25 @@
+import textwrap
+from easy_pil import Editor, Canvas, Font, utils
+
+background = Canvas((1024, 512), color=(0, 0, 100))
+pfp_link = "https://i.ibb.co/pR8j9jr/rulebook.png"
+overlay_link = "https://i.ibb.co/Pz1DcKq/Quote-Image-Overlay.png"
+font_main = Font("misc/jack-armstrong.ttf", 24)
+font_sub = Font("misc/jack-armstrong.ttf", 12)
+text_main = "im gonna put the cream in your pie if you dont shut up"
+text_sub = "Sugar Daddy (@callmebrody)"
+
+editor = Editor(background.image)
+pfp = utils.load_image(pfp_link).resize((512,512))
+overlay = utils.load_image(overlay_link)
+text = textwrap.wrap(text_main, width=32)
+
+editor.paste(pfp, (-64,0))
+editor.paste(overlay, (0,0))
+
+for i in range(len(text)):
+    editor.text((700,(256-(15*len(text))+(30*i))), text=text[i], font=font_main, color=0xffffff, align="center")
+editor.text((700,(270+(15*len(text)))), text=text_sub, font=font_sub, color=0x808080, align="center")
+
+editor = editor.image.convert("L")
+editor.show()

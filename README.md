@@ -255,3 +255,16 @@ In "Version X.Y.Z":
   - (Administrator Only) Summon an XP drop
 - Added slash command: message xpcollect
   - Collect an XP drop
+
+### VERSION 2.4.0 (14 JULY 2024 0500 GMT)
+
+- Added slash command: quote
+  - Quote someone's message
+- Edited slash command: dm
+  - Made the 'fetch' argument optional (Default: Text Input)
+- Edited slash command: msg
+  - Made the 'fetch' argument optional (Default: Text Input)
+  - Added the 'ai' optional argument (Default: False)
+    - Select whether to add the GohAI subtext
+  - Added the 'repeat' optional argument (Default: 1, Limit: 20)
+    - Input the number of times to send the message
