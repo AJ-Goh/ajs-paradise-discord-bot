@@ -385,11 +385,15 @@ async def quote(interaction: discord.Interaction, message_id: str):
   try:
     message = await interaction.channel.fetch_message(int(message_id))
     background = Canvas((1024, 512), color=(0, 0, 100))
-    pfp_link = await utils.load_image_async(message.author.avatar.url)
     overlay_link = "https://i.ibb.co/Pz1DcKq/Quote-Image-Overlay.png"
     font_main = Font("misc/jack-armstrong.ttf", 24)
     font_sub = Font("misc/jack-armstrong.ttf", 12)
     text_main = message.content
+
+    if message.author.avatar == None:
+      pfp_link = utils.load_image("https://cdn.discordapp.com/embed/avatars/0.png")
+    else:
+      pfp_link = await utils.load_image_async(message.author.avatar.url)
 
     if (len(str(message.author.display_name))>=16) or (len(str(message.author.name))>=16):
       text_sub = [f"{message.author.display_name}",f"(@{message.author.name})"]
