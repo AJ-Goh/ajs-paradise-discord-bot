@@ -4,10 +4,272 @@
 # 3. 8ball
 # 4. roast
 # 5. rizz
+# 6. truthordare
+# 7. ninetynine
+# 8. highlowinf
 
-import discord, random
+import discord, time, random
 from discord import app_commands
 from discord.ext import commands
+from discord.ui import View
+from discord.app_commands import Choice
+from misc.images import NINETYNINE, HIGHLOWINF
+from misc.messages import NINETYNINE_DESC, HIGHLOWINF_DESC
+from misc.truthordare import TOD_TRUTHS, TOD_DARES
+
+# NINETYNINE [5]
+
+# 1. Stores the game
+Games = {}
+
+# 2. Function to add the values
+def Add(UserID, Num):
+    Games[UserID]['Turn'] += 1
+
+    if Num == 1:
+        Value = Games[UserID]['Decrease1']
+        Games[UserID]['Current'] -= Value
+        if Games[UserID]['Current'] < 0:
+            Games[UserID]['Current'] = Games[UserID]['Goal'] + Games[UserID]['Current'] + 1
+    elif Num == 2:
+        Value = Games[UserID]['Decrease2']
+        Games[UserID]['Current'] -= Value
+        if Games[UserID]['Current'] < 0:
+            Games[UserID]['Current'] = Games[UserID]['Goal'] + Games[UserID]['Current'] + 1
+
+    elif Num == 3:
+        Value = Games[UserID]['Increase1']
+        Games[UserID]['Current'] += Value
+        if Games[UserID]['Current'] > Games[UserID]['Goal']:
+            Games[UserID]['Current'] -= Games[UserID]['Goal'] + 1     
+
+    elif Num == 4:
+        Value = Games[UserID]['Increase2']
+        Games[UserID]['Current'] += Value
+        if Games[UserID]['Current'] > Games[UserID]['Goal']:
+            Games[UserID]['Current'] -= Games[UserID]['Goal'] + 1     
+
+    elif Num == 5:
+        Value = Games[UserID]['Increase3']
+        Games[UserID]['Current'] += Value
+        if Games[UserID]['Current'] > Games[UserID]['Goal']:
+            Games[UserID]['Current'] -= Games[UserID]['Goal'] + 1     
+    
+# 3. Function to disable all the buttons
+def DisableAll(self, interaction):
+    self.children[0].label = "-" + str(Games[interaction.user.id]['Decrease1'])
+    self.children[0].disabled = True
+    self.children[1].label = "-" + str(Games[interaction.user.id]['Decrease2'])
+    self.children[1].disabled = True
+    self.children[2].label = "+" + str(Games[interaction.user.id]['Increase1'])
+    self.children[2].disabled = True
+    self.children[3].label = "+" + str(Games[interaction.user.id]['Increase2'])
+    self.children[3].disabled = True
+    self.children[4].label = "+" + str(Games[interaction.user.id]['Increase3'])
+    self.children[4].disabled = True  
+    Win = True 
+    return Win
+
+# 4. Class for the buttons
+class Buttons(View):
+    def __init__(self, message, UserID) -> None:
+        super().__init__()
+        self.message = message
+        self.UserID = UserID
+
+    @discord.ui.button(label="-", custom_id="Minus1", style=discord.ButtonStyle.red)
+    async def Minus1_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        await interaction.response.defer()
+        Add(interaction.user.id, 1)
+
+        if Games[interaction.user.id]['Current'] == Games[interaction.user.id]['Goal']:
+            Win = DisableAll(self=self, interaction=interaction)
+            embed = discord.Embed(
+                title=f"{Games[interaction.user.id]['Current']}",
+                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
+                color=0xaaaaff
+            )
+            embed.set_author(name="ninetynine")
+            embed.set_footer(text="Created by AJ Goh")
+        else:
+            Win = False
+            embed = discord.Embed(
+                title=f"{Games[interaction.user.id]['Current']}",
+                description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
+                color=0xffaaaa
+            )
+            embed.set_author(name="ninetynine")
+            embed.set_footer(text="Created by AJ Goh")
+        await interaction.edit_original_response(embed=embed, view=self)
+        if Win == True:
+            del Games[interaction.user.id]
+
+    @discord.ui.button(label="-", custom_id="Minus2", style=discord.ButtonStyle.red)
+    async def Minus2_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        await interaction.response.defer()
+        Add(interaction.user.id, 2)
+
+        if Games[interaction.user.id]['Current'] == Games[interaction.user.id]['Goal']:
+            Win = DisableAll(self=self, interaction=interaction)           
+            embed = discord.Embed(
+                title=f"{Games[interaction.user.id]['Current']}",
+                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
+                color=0xaaaaff
+            )
+            embed.set_author(name="ninetynine")
+            embed.set_footer(text="Created by AJ Goh")
+        else:
+            Win = False
+            embed = discord.Embed(
+                title=f"{Games[interaction.user.id]['Current']}",
+                description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
+                color=0xffaaaa
+            )
+            embed.set_author(name="ninetynine")
+            embed.set_footer(text="Created by AJ Goh")
+        await interaction.edit_original_response(embed=embed, view=self)
+        if Win:
+            del Games[interaction.user.id]
+    
+    @discord.ui.button(label="+", custom_id="Plus1", style= discord.ButtonStyle.blurple)
+    async def Plus1_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        
+        await interaction.response.defer()
+        Add(interaction.user.id, 3)
+
+        if Games[interaction.user.id]['Current'] == Games[interaction.user.id]['Goal']:
+            Win = DisableAll(self=self, interaction=interaction) 
+            embed = discord.Embed(
+                title=f"{Games[interaction.user.id]['Current']}",
+                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
+                color=0xaaaaff
+            )
+            embed.set_author(name="ninetynine")
+            embed.set_footer(text="Created by AJ Goh")
+        else:
+            Win = False
+            embed = discord.Embed(
+                title=f"{Games[interaction.user.id]['Current']}",
+                description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
+                color=0xffaaaa
+            )
+            embed.set_author(name="ninetynine")
+            embed.set_footer(text="Created by AJ Goh")
+        await interaction.edit_original_response(embed=embed, view=self)
+        if Win:
+            del Games[interaction.user.id]
+
+    @discord.ui.button(label="+", custom_id="Plus2", style= discord.ButtonStyle.blurple)
+    async def Plus2_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        await interaction.response.defer()
+        Add(interaction.user.id, 4)
+
+        if Games[interaction.user.id]['Current'] == Games[interaction.user.id]['Goal']:
+            Win = DisableAll(self=self, interaction=interaction)
+            embed = discord.Embed(
+                title=f"{Games[interaction.user.id]['Current']}",
+                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
+                color=0xaaaaff
+            )
+            embed.set_author(name="ninetynine")
+            embed.set_footer(text="Created by AJ Goh")
+        else:
+            Win = False
+            embed = discord.Embed(
+                title=f"{Games[interaction.user.id]['Current']}",
+                description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
+                color=0xffaaaa
+            )
+            embed.set_author(name="ninetynine")
+            embed.set_footer(text="Created by AJ Goh")
+        await interaction.edit_original_response(embed=embed, view=self)
+        if Win:
+            del Games[interaction.user.id]
+
+    @discord.ui.button(label="+", custom_id="Plus3", style= discord.ButtonStyle.blurple)
+    async def Plus3_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        await interaction.response.defer()
+        Add(interaction.user.id, 5) 
+
+        if Games[interaction.user.id]['Current'] == Games[interaction.user.id]['Goal']:
+            Win = DisableAll(self=self, interaction=interaction)
+            embed = discord.Embed(
+                title=f"{Games[interaction.user.id]['Current']}",
+                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
+                color=0xaaaaff
+            )
+            embed.set_author(name="ninetynine")
+            embed.set_footer(text="Created by AJ Goh")
+        else:
+            Win = False
+            embed = discord.Embed(
+                title=f"{Games[interaction.user.id]['Current']}",
+                description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
+                color=0xffaaaa
+            )
+            embed.set_author(name="ninetynine")
+            embed.set_footer(text="Created by AJ Goh")
+
+        await interaction.edit_original_response(embed=embed, view=self)
+        if Win:
+            del Games[interaction.user.id]
+
+# 5. Class for deletion message Yes/No
+class YesNo(View):
+    def __init__(self, message, UserID) -> None:
+        super().__init__()
+        self.message = message
+        self.UserID = UserID
+
+    @discord.ui.button(label="Yes", custom_id="Yes", style=discord.ButtonStyle.green)
+    async def Yes_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        await interaction.response.defer()
+        Embed = discord.Embed(description="Deleting session..", color=0xffaaaa)
+        Embed.set_author(name="ninetynine")
+        Embed.set_footer(text="Created by AJ Goh")
+        await interaction.edit_original_response(embed=Embed, view=None)
+
+        ChannelID = Games[interaction.user.id]['Channel']
+        Channel = interaction.guild.get_channel(ChannelID)
+
+        MessageID = Games[interaction.user.id]['Message']
+        Message = await Channel.fetch_message(MessageID)
+        await Message.delete()
+
+        del Games[interaction.user.id]
+        Embed = discord.Embed(description="Successfully deleted the previous session. You may proceed to run the command again to start a new game session.", color=0xffaaaa)
+        Embed.set_author(name="ninetynine")
+        Embed.set_footer(text="Created by AJ Goh")
+        Message = await interaction.edit_original_response(embed=Embed, view=None)
+
+        time.sleep(3)
+        await Message.delete()
+
+    @discord.ui.button(label="No", custom_id="No", style= discord.ButtonStyle.red)
+    async def No_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        await interaction.response.defer()
+        Embed = discord.Embed(description="Action cancelled.", color=0xaaaaff)
+        Embed.set_author(name="ninetynine")
+        Embed.set_footer(text="Created by AJ Goh")
+        Message = await interaction.edit_original_response(embed=Embed, view=None)
+        time.sleep(3)
+        await Message.delete()
+
+# FUN GROUPCOG
 
 class SlashCmd_Fun(commands.GroupCog, group_name="fun"):
   def __init__(self, bot):
@@ -132,6 +394,120 @@ class SlashCmd_Fun(commands.GroupCog, group_name="fun"):
       "If beauty were a crime, you'd be serving a life sentence."
     ]
     await interaction.response.send_message(f"{random.choice(responses)}")
+
+  @app_commands.command(name="truthordare", description="Play a game of Truth or Dare.")
+  @app_commands.describe(choice = "Choose between a Truth or a Dare...")
+  @app_commands.choices(choice = [
+    app_commands.Choice(name= "Truth", value= "t"),
+    app_commands.Choice(name= "Dare", value= "d"),
+    app_commands.Choice(name= "Random", value= "r")
+  ])
+  async def truthordare(self, interaction: discord.Interaction, choice: str="r"):
+    tod = True
+    if choice == "r":
+      tod = random.choice([True, False])
+    elif choice == "d":
+      tod = False
+    if tod == True:
+      n = random.randint(1,len(TOD_TRUTHS))
+      t = TOD_TRUTHS[n][0]
+      c = 0xaaffaa
+      f = f"Truth {n}/{len(TOD_TRUTHS)} · Created by @{TOD_TRUTHS[n][1]}"
+    else:
+      n = random.randint(1,len(TOD_DARES))
+      t = TOD_DARES[n][0]
+      c = 0xffaaaa
+      f = f"Dare {n}/{len(TOD_DARES)} · Created by @{TOD_DARES[n][1]}"
+    e = discord.Embed(title=t,colour=c)
+    e.set_footer(text=f)
+    await interaction.response.send_message(interaction.user.mention,embed=e)    
+
+  @app_commands.command(name="ninetynine", description="Play the number game 'ninetynine' created by AJ Goh.")
+  @app_commands.choices(difficulty = [
+    Choice(name= "How to Play", value= "Tutorial"),
+    Choice(name= "Easy", value= "Easy"),
+    Choice(name= "Medium", value= "Medium"),
+    Choice(name= "Hard", value= "Hard"),
+    Choice(name= "Nine nines", value= "Nine nines")
+])
+  @app_commands.describe(difficulty="Select your desired difficulty.")
+  async def Game(self, interaction: discord.Interaction, difficulty: str):
+    if interaction.channel.type == discord.ChannelType.private:
+      Embed = discord.Embed(description="Sorry, this command is not available in DMs.", color=0xffdddd)
+      Embed.set_author(name="ninetynine")
+      Embed.set_footer(text="Created by AJ Goh")
+      await interaction.response.send_message(embed=Embed)
+      return
+  
+    if difficulty == "Tutorial":
+      e = discord.Embed(
+        title="Welcome to ninetynine!",
+        description=NINETYNINE_DESC,
+        colour=0xffffff)
+      e.set_author(name="ninetynine")
+      e.set_footer(text="Created by AJ Goh")
+      e.set_image(url=NINETYNINE)
+      await interaction.response.send_message(embed=e)
+
+    else: 
+      if interaction.user.id in Games:
+        embed = discord.Embed(
+          description="You already have an existing game session, would you like to delete it?",
+          color=0xffaaaa
+        )
+        embed.set_author(name="ninetynine")
+        embed.set_footer(text="Created by AJ Goh")
+        await interaction.response.send_message(embed=embed)
+        view = YesNo(message=interaction, UserID=interaction.user.id)
+        await interaction.edit_original_response(view=view)
+      else:
+        if difficulty == "Easy":
+          Games[interaction.user.id] = {}
+          Games[interaction.user.id]['Goal'] = 9
+
+        elif difficulty == "Medium":
+          Games[interaction.user.id] = {}
+          Games[interaction.user.id]['Goal'] = 99
+
+        elif difficulty == "Hard":
+          Games[interaction.user.id] = {}
+          Games[interaction.user.id]['Goal'] = 999
+
+        elif difficulty == "Nine nines":
+          Games[interaction.user.id] = {}
+          Games[interaction.user.id]['Goal'] = 999999999
+        
+        # Button values
+        decrease_numbers = random.sample(range(1, (Games[interaction.user.id]['Goal']+1)//2 + 1), 2)
+        Games[interaction.user.id]['Decrease1'] = decrease_numbers[0]
+        Games[interaction.user.id]['Decrease2'] = decrease_numbers[1]
+
+        increase_numbers = random.sample(range(1, (Games[interaction.user.id]['Goal']+1)//2 + 1), 3)
+        Games[interaction.user.id]['Increase1'] = increase_numbers[0]
+        Games[interaction.user.id]['Increase2'] = increase_numbers[1]
+        Games[interaction.user.id]['Increase3'] = increase_numbers[2]
+
+        # Other info
+        Games[interaction.user.id]['Current'] = random.randint(0, (Games[interaction.user.id]['Goal'] - 1)/2)
+        Games[interaction.user.id]['Name'] = interaction.user.name
+        Games[interaction.user.id]['Turn'] = 1
+
+        # Sends the message
+        embed = discord.Embed(
+          title=f"{Games[interaction.user.id]['Current']}",
+          description=f"Get the number above to **{Games[interaction.user.id]['Goal']}** to win. This is turn **#{Games[interaction.user.id]['Turn']}**.",
+          color=0xffaaaa
+        )
+        embed.set_author(name="ninetynine")
+        embed.set_footer(text="Created by AJ Goh")
+        await interaction.response.defer()
+        message = await interaction.followup.send(embed=embed, wait=True)
+        view = Buttons(message=message, UserID=interaction.user.id)
+        await interaction.edit_original_response(view=view)
+
+        # Record the channel and message IDs
+        Games[interaction.user.id]['Channel'] = interaction.channel_id
+        Games[interaction.user.id]['Message'] = message.id
 
 async def setup(bot):
   await bot.add_cog(SlashCmd_Fun(bot))

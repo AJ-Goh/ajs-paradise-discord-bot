@@ -5,8 +5,9 @@
 # 4. WELCOME_MESSAGE_NONE
 # 5. GOODBYE_MESSAGE
 # 6. NINETYNINE_DESC
-# 7. SERVER_RULES
-# 8. STAFF_APPS_QNS
+# 7. HIGHLOWINF_DESC
+# 8. SERVER_RULES
+# 9. STAFF_APPS_QNS
 
 CHANGELOG_LIST = [
   "Version 2.4.0", # VERSION NUMBER (X.Y.Z)
@@ -114,6 +115,18 @@ The number shown at the start vary from 0 to the max value of the current diffic
 You are to press the provided buttons to increase or decrease the number shown. When a number drops below 0 or exceeds the max value, the number will loop over (i.e.: number increase from 99 to 0, and vice versa). The buttons' values are hidden at first, and will be revealed when you win.
 
 The objective of this game is to use the buttons to change the number to show exactly the max value, while using the fewest number of moves. Good luck and enjoy!
+
+"""
+
+HIGHLOWINF_DESC = """
+
+Welcome to HighLow Infinite, a game of deduction and intuition...
+
+To start playing, choose a difficulty and select its respective option. The game will then think of a random number within a given range (which varies based on your selected game difficulty) and ask you to guess whether it is higher or lower than another random number.
+
+You are press the buttons provided, based on whether you think that random number is higher than, lower than, or equal to the game's number. If you pressed correctly, you will be asked to guess again, but against a new random number. This will continue until you guess incorrectly or guess the game's number exactly.
+
+The objective of this game is to make as many correct guesses as you can, ultimately guessing the game's number exactly. Good luck and enjoy!
 
 """
 
