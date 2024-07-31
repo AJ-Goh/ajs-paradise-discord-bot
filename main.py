@@ -251,7 +251,7 @@ async def rules(interaction: discord.Interaction):
 @bot.tree.command(name="timestamp", description="Get the timestamp for a date and time input.")
 @app_commands.describe(
   date = "Input the desired date in the format: ddmmYYYY",
-  time = "Input the desired time (in GMT+08 for AJ's convenience) in the format: HHMMSS",
+  time = "Input the desired time in the format: HHMMSS",
   type = "Input the desired type of the timestamp."
 )
 @app_commands.choices(type = [
@@ -278,9 +278,7 @@ async def timestamp(interaction: discord.Interaction, date: str, time: str, type
         await interaction.response.send_message("Error: Invalid date format.")
         return
 
-  now_time = False
   if time.lower() == 'now':
-    now_time = True
     current_time = datetime.now().time()
   else:
     try:
@@ -296,10 +294,7 @@ async def timestamp(interaction: discord.Interaction, date: str, time: str, type
         date_format = "%d%m%Y%H%M%S"
         datetime_obj = datetime.strptime(i, date_format)
         timestamp = int(datetime_obj.timestamp())
-        if now_time:
-          return f"<t:{timestamp}:{type}>"
-        else:
-          return f"<t:{timestamp-28800}:{type}>"
+        return f"<t:{timestamp}:{type}>"
     except ValueError:
         return "Error: Invalid input format."
 
