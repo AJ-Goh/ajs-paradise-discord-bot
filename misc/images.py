@@ -1,16 +1,22 @@
 # List of images so far:
 # 1. RULEBOOK
 # 2. NINETYNINE
-# 3. HIGHLOWINF
-# 4. LEVELUP
-# 5. XPDROP
-# 6. QUOTE_BG
+# 3. NINETYNINE_LOGO
+# 4. HIGHLOWINF
+# 5. HIGHLOWINF_LOGO
+# 6. LEVELUP
+# 7. XPDROP
+# 8. QUOTE_BG
 
 RULEBOOK = "https://i.ibb.co/pR8j9jr/rulebook.png"
 
 NINETYNINE = "https://i.ibb.co/DfPmCqx/ninetynine.png"
 
-HIGHLOWINF = "https://i.ibb.co/VL1R5hP/highlowinf.png"
+NINETYNINE_LOGO = "https://i.ibb.co/vQ834Jt/ninetynine-logo.jpg"
+
+HIGHLOWINF = "https://i.ibb.co/PMGm7fq/highlowinf.png"
+
+HIGHLOWINF_LOGO = "https://i.ibb.co/CwCmn9N/highlowinf-logo.jpg"
 
 LEVELUP = "https://i.ibb.co/zJY2q0W/Level-Up.png"
 
