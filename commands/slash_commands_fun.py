@@ -269,6 +269,207 @@ class YesNo(View):
         time.sleep(3)
         await Message.delete()
 
+# HIGHLOWINF [5]
+
+# 1. Stores the game
+HLGames = {}
+
+# 2. Function to compare the numbers
+def HLCompare(UserID, Input):
+    HLGames[UserID]['Turn'] += 1
+
+    if Input == "h":
+      if HLGames[UserID]['N'] > HLGames[UserID]['G']:
+        HLGames[UserID]['Min'] = HLGames[UserID]['G']
+        return 2
+    	else:
+        return 0
+    elif Input == "l":
+        if HLGames[UserID]['N'] < HLGames[UserID]['G']:
+        HLGames[UserID]['Max'] = HLGames[UserID]['G']
+        return 2
+    	else:
+        return 0
+    elif Input == "e":
+        if HLGames[UserID]['N'] == HLGames[UserID]['G']:
+        return 1
+    	else:
+        return 0
+        
+# 3. Functions to disable all the buttons
+def HLEnd(self, interaction):
+  	self.children[0].disabled = True
+    self.children[1].disabled = True
+    self.children[2].disabled = True
+    End = True 
+    return End
+
+# 4. Class for the buttons
+class HLButtons(View):
+    def __init__(self, message, UserID) -> None:
+      super().__init__()
+      self.message = message
+      self.UserID = UserID
+
+    @discord.ui.button(label="Higher", custom_id="hi", style=discord.ButtonStyle.green)
+    async def hi_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        await interaction.response.defer()
+        Win = HLCompare(interaction.user.id, "h")
+
+        if Win == 0:
+            End = HLEnd(self=self, interaction=interaction)
+            embed = discord.Embed(
+                title=f"The number is __{HLGames[interaction.user.id]['N']}__",
+                description=f"Sorry, you lost! You survived for **{HLGames[interaction.user.id]['Turn']}** turns.",
+                color=0xffaaaa
+            )
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_footer(text="Created by AJ Goh")
+        elif Win == 1:
+            End = HLEnd(self=self, interaction=interaction)
+            embed = discord.Embed(
+                title=f"The number is __{HLGames[interaction.user.id]['N']}__",
+                description=f"Congratulations! You won in **{HLGames[interaction.user.id]['Turn']}** turns.",
+                color=0xaaffaa
+            )
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_footer(text="Created by AJ Goh")
+        else:
+            End = False
+            HLGames[interaction.user.id]['G'] = random.randint(HLGames[interaction.user.id]['Min'], HLGames[interaction.user.id]['Max'])
+            embed = discord.Embed(
+                description=f"(Turn **#{HLGames[interaction.user.id]['Turn']}**)\nI am thinking of a number between **1** and **{HLGames[interaction.user.id]['R']}** inclusive.\n# Is it higher than, lower than, or equal to __{HLGames[interaction.user.id]['G']}__?",
+                color=0xaaffaa
+            )
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
+            embed.set_footer(text="Created by AJ Goh")
+        await interaction.edit_original_response(embed=embed, view=self)
+        if End:
+            del HLGames[interaction.user.id]
+
+    @discord.ui.button(label="Lower", custom_id="lo", style=discord.ButtonStyle.green)
+    async def hi_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        await interaction.response.defer()
+        Win = HLCompare(interaction.user.id, "l")
+
+        if Win == 0:
+            End = HLEnd(self=self, interaction=interaction)
+            embed = discord.Embed(
+                title=f"The number is __{HLGames[interaction.user.id]['N']}__",
+                description=f"Sorry, you lost! You survived for **{HLGames[interaction.user.id]['Turn']}** turns.",
+                color=0xffaaaa
+            )
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_footer(text="Created by AJ Goh")
+        elif Win == 1:
+            End = HLEnd(self=self, interaction=interaction)
+            embed = discord.Embed(
+                title=f"The number is __{HLGames[interaction.user.id]['N']}__",
+                description=f"Congratulations! You won in **{HLGames[interaction.user.id]['Turn']}** turns.",
+                color=0xaaffaa
+            )
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_footer(text="Created by AJ Goh")
+        else:
+            End = False
+            HLGames[interaction.user.id]['G'] = random.randint(HLGames[interaction.user.id]['Min'], HLGames[interaction.user.id]['Max'])
+            embed = discord.Embed(
+                description=f"(Turn **#{HLGames[interaction.user.id]['Turn']}**)\nI am thinking of a number between **1** and **{HLGames[interaction.user.id]['R']}** inclusive.\n# Is it higher than, lower than, or equal to __{HLGames[interaction.user.id]['G']}__?",
+                color=0xaaffaa
+            )
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
+            embed.set_footer(text="Created by AJ Goh")
+        await interaction.edit_original_response(embed=embed, view=self)
+        if End:
+            del HLGames[interaction.user.id]
+
+    @discord.ui.button(label="Equal", custom_id="eq", style=discord.ButtonStyle.green)
+    async def hi_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        await interaction.response.defer()
+        Win = HLCompare(interaction.user.id, "e")
+
+        if Win == 0:
+            End = HLEnd(self=self, interaction=interaction)
+            embed = discord.Embed(
+                title=f"The number is __{HLGames[interaction.user.id]['N']}__",
+                description=f"Sorry, you lost! You survived for **{HLGames[interaction.user.id]['Turn']}** turns.",
+                color=0xffaaaa
+            )
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_footer(text="Created by AJ Goh")
+        elif Win == 1:
+            End = HLEnd(self=self, interaction=interaction)
+            embed = discord.Embed(
+                title=f"The number is __{HLGames[interaction.user.id]['N']}__",
+                description=f"Congratulations! You won in **{HLGames[interaction.user.id]['Turn']}** turns.",
+                color=0xaaffaa
+            )
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_footer(text="Created by AJ Goh")
+        else:
+            End = False
+            HLGames[interaction.user.id]['G'] = random.randint(HLGames[interaction.user.id]['Min'], HLGames[interaction.user.id]['Max'])
+            embed = discord.Embed(
+                description=f"(Turn **#{HLGames[interaction.user.id]['Turn']}**)\nI am thinking of a number between **1** and **{HLGames[interaction.user.id]['R']}** inclusive.\n# Is it higher than, lower than, or equal to __{HLGames[interaction.user.id]['G']}__?",
+                color=0xaaffaa
+            )
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
+            embed.set_footer(text="Created by AJ Goh")
+        await interaction.edit_original_response(embed=embed, view=self)
+        if End:
+            del HLGames[interaction.user.id]
+
+# 5. Class for deletion message Yes/No
+class YesNo(View):
+    def __init__(self, message, UserID) -> None:
+        super().__init__()
+        self.message = message
+        self.UserID = UserID
+
+    @discord.ui.button(label="Yes", custom_id="Yes", style=discord.ButtonStyle.green)
+    async def Yes_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        await interaction.response.defer()
+        Embed = discord.Embed(description="Deleting session..", color=0xffaaaa)
+        Embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
+        Embed.set_footer(text="Created by AJ Goh")
+        await interaction.edit_original_response(embed=Embed, view=None)
+
+        ChannelID = HLGames[interaction.user.id]['Channel']
+        Channel = interaction.guild.get_channel(ChannelID)
+
+        MessageID = HLGames[interaction.user.id]['Message']
+        Message = await Channel.fetch_message(MessageID)
+        await Message.delete()
+
+        del HLGames[interaction.user.id]
+        Embed = discord.Embed(description="Successfully deleted the previous session. You may proceed to run the command again to start a new game session.", color=0xaaffaa)
+        Embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
+        Embed.set_footer(text="Created by AJ Goh")
+        Message = await interaction.edit_original_response(embed=Embed, view=None)
+
+        time.sleep(3)
+        await Message.delete()
+
+    @discord.ui.button(label="No", custom_id="No", style= discord.ButtonStyle.red)
+    async def No_callback(self, interaction: discord.Interaction, button):
+        if interaction.user.id != self.UserID:
+            return
+        await interaction.response.defer()
+        Embed = discord.Embed(description="Action cancelled.", color=0xaaffaa)
+        Embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
+        Embed.set_footer(text="Created by AJ Goh")
+        Message = await interaction.edit_original_response(embed=Embed, view=None)
+        time.sleep(3)
+        await Message.delete()
+
 # FUN GROUPCOG
 
 class SlashCmd_Fun(commands.GroupCog, group_name="fun"):
@@ -431,9 +632,9 @@ class SlashCmd_Fun(commands.GroupCog, group_name="fun"):
     Choice(name= "Nine nines", value= "Nine nines")
 ])
   @app_commands.describe(difficulty="Select your desired difficulty.")
-  async def Game(self, interaction: discord.Interaction, difficulty: str):
+  async def ninetynine(self, interaction: discord.Interaction, difficulty: str):
     if interaction.channel.type == discord.ChannelType.private:
-      Embed = discord.Embed(description="Sorry, this command is not available in DMs.", color=0xffdddd)
+      Embed = discord.Embed(description="Sorry, this command is not available in DMs.", color=0xffaaaa)
       Embed.set_author(name="ninetynine", icon_url=NINETYNINE_LOGO)
       Embed.set_footer(text="Created by AJ Goh")
       await interaction.response.send_message(embed=Embed)
@@ -508,6 +709,90 @@ class SlashCmd_Fun(commands.GroupCog, group_name="fun"):
         # Record the channel and message IDs
         Games[interaction.user.id]['Channel'] = interaction.channel_id
         Games[interaction.user.id]['Message'] = message.id
+
+  @app_commands.command(name="highlowinf", description="Play the guessing game 'HighLow Infinite' created by AJ Goh.")
+  @app_commands.choices(difficulty = [
+    Choice(name= "How to Play", value= "Tutorial"),
+    Choice(name= "Easy", value= "Easy"),
+    Choice(name= "Medium", value= "Medium"),
+    Choice(name= "Hard", value= "Hard"),
+    Choice(name= "Extreme", value= "Extreme")
+  ])
+  @app_commands.describe(difficulty="Select your desired difficulty.")
+  async def highlowinf(self, interaction: discord.Interaction, difficulty: str):
+    if interaction.channel.type == discord.ChannelType.private:
+      Embed = discord.Embed(description="Sorry, this command is not available in DMs.", color=0xaaffaa)
+      Embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
+      Embed.set_footer(text="Created by AJ Goh")
+      await interaction.response.send_message(embed=Embed)
+      return
+  
+    if difficulty == "Tutorial":
+      e = discord.Embed(
+        title="Welcome to HighLow Infinite!",
+        description=HIGHLOWINF_DESC,
+        colour=0xffffff)
+      e.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
+      e.set_footer(text="Created by AJ Goh")
+      e.set_image(url=HIGHLOWINF)
+      await interaction.response.send_message(embed=e)
+
+    else: 
+      if interaction.user.id in HLGames:
+        embed = discord.Embed(
+          description="You already have an existing game session, would you like to delete it?",
+          color=0xffaaaa
+        )
+        embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
+        embed.set_footer(text="Created by AJ Goh")
+        await interaction.response.send_message(embed=embed)
+        view = YesNo(message=interaction, UserID=interaction.user.id)
+        await interaction.edit_original_response(view=view)
+      else:
+        if difficulty == "Easy":
+          HLGames[interaction.user.id] = {}
+          HLGames[interaction.user.id]['Min'] = 1
+          HLGames[interaction.user.id]['Max'] = 10
+
+        elif difficulty == "Medium":
+          HLGames[interaction.user.id] = {}
+          HLGames[interaction.user.id]['Min'] = 1
+          HLGames[interaction.user.id]['Max'] = 100
+
+        elif difficulty == "Hard":
+          HLGames[interaction.user.id] = {}
+          HLGames[interaction.user.id]['Min'] = 1
+          HLGames[interaction.user.id]['Max'] = 1000
+
+        elif difficulty == "Extreme":
+          HLGames[interaction.user.id] = {}
+          HLGames[interaction.user.id]['Min'] = 1
+          HLGames[interaction.user.id]['Max'] = 1000000
+        
+        # Game number, guess number, range
+        HLGames[interaction.user.id]['N'] = random.randint(1, HLGames[interaction.user.id]['Max'])
+        HLGames[interaction.user.id]['G'] = random.randint(1, HLGames[interaction.user.id]['Max'])
+        HLGames[interaction.user.id]['R'] = HLGames[interaction.user.id]['Max']
+
+        # Other info
+        HLGames[interaction.user.id]['Name'] = interaction.user.name
+        HLGames[interaction.user.id]['Turn'] = 1
+
+        # Sends the message
+        embed = discord.Embed(
+          description=f"(Turn **#{HLGames[interaction.user.id]['Turn']}**)\nI am thinking of a number between **1** and **{HLGames[interaction.user.id]['R']}** inclusive.\n# Is it higher than, lower than, or equal to __{HLGames[interaction.user.id]['G']}__?",
+          color=0xaaffaa
+        )
+        embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
+        embed.set_footer(text="Created by AJ Goh")
+        await interaction.response.defer()
+        message = await interaction.followup.send(embed=embed, wait=True)
+        view = HLButtons(message=message, UserID=interaction.user.id)
+        await interaction.edit_original_response(view=view)
+
+        # Record the channel and message IDs
+        HLGames[interaction.user.id]['Channel'] = interaction.channel_id
+        HLGames[interaction.user.id]['Message'] = message.id
 
 async def setup(bot):
   await bot.add_cog(SlashCmd_Fun(bot))
