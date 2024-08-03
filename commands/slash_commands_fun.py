@@ -88,7 +88,7 @@ class Buttons(View):
             Win = DisableAll(self=self, interaction=interaction)
             embed = discord.Embed(
                 title=f"{Games[interaction.user.id]['Current']}",
-                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
+                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']-1}** turns.",
                 color=0xaaaaff
             )
             embed.set_author(name="ninetynine", icon_url=NINETYNINE_LOGO)
@@ -117,7 +117,7 @@ class Buttons(View):
             Win = DisableAll(self=self, interaction=interaction)           
             embed = discord.Embed(
                 title=f"{Games[interaction.user.id]['Current']}",
-                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
+                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']-1}** turns.",
                 color=0xaaaaff
             )
             embed.set_author(name="ninetynine", icon_url=NINETYNINE_LOGO)
@@ -147,7 +147,7 @@ class Buttons(View):
             Win = DisableAll(self=self, interaction=interaction) 
             embed = discord.Embed(
                 title=f"{Games[interaction.user.id]['Current']}",
-                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
+                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']-1}** turns.",
                 color=0xaaaaff
             )
             embed.set_author(name="ninetynine", icon_url=NINETYNINE_LOGO)
@@ -176,7 +176,7 @@ class Buttons(View):
             Win = DisableAll(self=self, interaction=interaction)
             embed = discord.Embed(
                 title=f"{Games[interaction.user.id]['Current']}",
-                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
+                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']-1}** turns.",
                 color=0xaaaaff
             )
             embed.set_author(name="ninetynine", icon_url=NINETYNINE_LOGO)
@@ -205,7 +205,7 @@ class Buttons(View):
             Win = DisableAll(self=self, interaction=interaction)
             embed = discord.Embed(
                 title=f"{Games[interaction.user.id]['Current']}",
-                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']}** turns.",
+                description=f"Congratulations! You won in **{Games[interaction.user.id]['Turn']-1}** turns.",
                 color=0xaaaaff
             )
             embed.set_author(name="ninetynine", icon_url=NINETYNINE_LOGO)
@@ -276,33 +276,33 @@ HLGames = {}
 
 # 2. Function to compare the numbers
 def HLCompare(UserID, Input):
-    HLGames[UserID]['Turn'] += 1
+  HLGames[UserID]['Turn'] += 1
 
-    if Input == "h":
-      if HLGames[UserID]['N'] > HLGames[UserID]['G']:
-        HLGames[UserID]['Min'] = HLGames[UserID]['G']
-        return 2
-    	else:
-        return 0
-    elif Input == "l":
-        if HLGames[UserID]['N'] < HLGames[UserID]['G']:
-        HLGames[UserID]['Max'] = HLGames[UserID]['G']
-        return 2
-    	else:
-        return 0
-    elif Input == "e":
-        if HLGames[UserID]['N'] == HLGames[UserID]['G']:
-        return 1
-    	else:
-        return 0
+  if Input == "h":
+    if HLGames[UserID]['N'] > HLGames[UserID]['G']:
+      HLGames[UserID]['Min'] = HLGames[UserID]['G']
+      return 2
+    else:
+      return 0
+  elif Input == "l":
+    if HLGames[UserID]['N'] < HLGames[UserID]['G']:
+      HLGames[UserID]['Max'] = HLGames[UserID]['G']
+      return 2
+    else:
+      return 0
+  elif Input == "e":
+    if HLGames[UserID]['N'] == HLGames[UserID]['G']:
+      return 1
+    else:
+      return 0
         
 # 3. Functions to disable all the buttons
 def HLEnd(self, interaction):
-  	self.children[0].disabled = True
-    self.children[1].disabled = True
-    self.children[2].disabled = True
-    End = True 
-    return End
+  self.children[0].disabled = True
+  self.children[1].disabled = True
+  self.children[2].disabled = True
+  End = True 
+  return End
 
 # 4. Class for the buttons
 class HLButtons(View):
@@ -322,19 +322,19 @@ class HLButtons(View):
             End = HLEnd(self=self, interaction=interaction)
             embed = discord.Embed(
                 title=f"The number is __{HLGames[interaction.user.id]['N']}__",
-                description=f"Sorry, you lost! You survived for **{HLGames[interaction.user.id]['Turn']}** turns.",
+                description=f"Sorry, you lost! You survived for **{HLGames[interaction.user.id]['Turn']-1}** turns.",
                 color=0xffaaaa
             )
-            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
             embed.set_footer(text="Created by AJ Goh")
         elif Win == 1:
             End = HLEnd(self=self, interaction=interaction)
             embed = discord.Embed(
                 title=f"The number is __{HLGames[interaction.user.id]['N']}__",
-                description=f"Congratulations! You won in **{HLGames[interaction.user.id]['Turn']}** turns.",
+                description=f"Congratulations! You won in **{HLGames[interaction.user.id]['Turn']-1}** turns.",
                 color=0xaaffaa
             )
-            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
             embed.set_footer(text="Created by AJ Goh")
         else:
             End = False
@@ -350,7 +350,7 @@ class HLButtons(View):
             del HLGames[interaction.user.id]
 
     @discord.ui.button(label="Lower", custom_id="lo", style=discord.ButtonStyle.green)
-    async def hi_callback(self, interaction: discord.Interaction, button):
+    async def lo_callback(self, interaction: discord.Interaction, button):
         if interaction.user.id != self.UserID:
             return
         await interaction.response.defer()
@@ -360,19 +360,19 @@ class HLButtons(View):
             End = HLEnd(self=self, interaction=interaction)
             embed = discord.Embed(
                 title=f"The number is __{HLGames[interaction.user.id]['N']}__",
-                description=f"Sorry, you lost! You survived for **{HLGames[interaction.user.id]['Turn']}** turns.",
+                description=f"Sorry, you lost! You survived for **{HLGames[interaction.user.id]['Turn']-1}** turns.",
                 color=0xffaaaa
             )
-            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
             embed.set_footer(text="Created by AJ Goh")
         elif Win == 1:
             End = HLEnd(self=self, interaction=interaction)
             embed = discord.Embed(
                 title=f"The number is __{HLGames[interaction.user.id]['N']}__",
-                description=f"Congratulations! You won in **{HLGames[interaction.user.id]['Turn']}** turns.",
+                description=f"Congratulations! You won in **{HLGames[interaction.user.id]['Turn']-1}** turns.",
                 color=0xaaffaa
             )
-            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
             embed.set_footer(text="Created by AJ Goh")
         else:
             End = False
@@ -388,7 +388,7 @@ class HLButtons(View):
             del HLGames[interaction.user.id]
 
     @discord.ui.button(label="Equal", custom_id="eq", style=discord.ButtonStyle.green)
-    async def hi_callback(self, interaction: discord.Interaction, button):
+    async def eq_callback(self, interaction: discord.Interaction, button):
         if interaction.user.id != self.UserID:
             return
         await interaction.response.defer()
@@ -398,19 +398,19 @@ class HLButtons(View):
             End = HLEnd(self=self, interaction=interaction)
             embed = discord.Embed(
                 title=f"The number is __{HLGames[interaction.user.id]['N']}__",
-                description=f"Sorry, you lost! You survived for **{HLGames[interaction.user.id]['Turn']}** turns.",
+                description=f"Sorry, you lost! You survived for **{HLGames[interaction.user.id]['Turn']-1}** turns.",
                 color=0xffaaaa
             )
-            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
             embed.set_footer(text="Created by AJ Goh")
         elif Win == 1:
             End = HLEnd(self=self, interaction=interaction)
             embed = discord.Embed(
                 title=f"The number is __{HLGames[interaction.user.id]['N']}__",
-                description=f"Congratulations! You won in **{HLGames[interaction.user.id]['Turn']}** turns.",
+                description=f"Congratulations! You won in **{HLGames[interaction.user.id]['Turn']-1}** turns.",
                 color=0xaaffaa
             )
-            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOW_LOGO)
+            embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
             embed.set_footer(text="Created by AJ Goh")
         else:
             End = False
@@ -426,7 +426,7 @@ class HLButtons(View):
             del HLGames[interaction.user.id]
 
 # 5. Class for deletion message Yes/No
-class YesNo(View):
+class HLYesNo(View):
     def __init__(self, message, UserID) -> None:
         super().__init__()
         self.message = message
@@ -553,17 +553,17 @@ class SlashCmd_Fun(commands.GroupCog, group_name="fun"):
       "I'd roast you, but I'm afraid your IQ might drop even lower.",
       "Is your drama going to an intermission soon, or should I grab some popcorn?",
       "Remember when I asked for your opinion? Me neither.",
-      "You're like a cloud – when you disappear, it's a beautiful day.",
+      "You're like a cloud - when you disappear, it's a beautiful day.",
       "Are you always this dumb, or are you just making a special effort today?",
       "I envy everyone who hasn't met you.",
       "Roses are red, violets are blue, I have five fingers, and the middle one's for you.",
       "Your ego is so massive, it bends spacetime more than a black hole.",
       "I'd call you a genius, but then I remembered geniuses contribute positively to society.",
-      "Your two brain cells are like Schrödinger's cat – simultaneously present and absent.",
+      "Your two brain cells are like Schrödinger's cat - simultaneously present and absent.",
       "If your IQ was on the periodic table, it'd be an element with a half-life shorter than a nanosecond.",
       "Did you learn about inertia? Because you're showing no sign of intellectual movement.",
       "If wit were a form of energy, you'd be a perpetual motion machine of disappointment.",
-      "Your understanding of ethics is like dividing by zero – undefined and causing everyone around you discomfort.",
+      "Your understanding of ethics is like dividing by zero - undefined and causing everyone around you discomfort.",
       "Are you made of dark matter? Because you're difficult to detect and have no observable impact on my life.",
       "I'd ask about your achievements, but I'm not sure counting to ten qualifies as groundbreaking research.",
       "Your arrogance is a prime example of the Dunning-Kruger effect, but I doubt you'd even understand that."
@@ -656,7 +656,7 @@ class SlashCmd_Fun(commands.GroupCog, group_name="fun"):
           description="You already have an existing game session, would you like to delete it?",
           color=0xffaaaa
         )
-        embed.set_author(name="ninetynine")
+        embed.set_author(name="ninetynine", icon_url=NINETYNINE_LOGO)
         embed.set_footer(text="Created by AJ Goh")
         await interaction.response.send_message(embed=embed)
         view = YesNo(message=interaction, UserID=interaction.user.id)
@@ -746,7 +746,7 @@ class SlashCmd_Fun(commands.GroupCog, group_name="fun"):
         embed.set_author(name="HighLow Infinite", icon_url=HIGHLOWINF_LOGO)
         embed.set_footer(text="Created by AJ Goh")
         await interaction.response.send_message(embed=embed)
-        view = YesNo(message=interaction, UserID=interaction.user.id)
+        view = HLYesNo(message=interaction, UserID=interaction.user.id)
         await interaction.edit_original_response(view=view)
       else:
         if difficulty == "Easy":

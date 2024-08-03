@@ -94,8 +94,8 @@ async def on_message(msg):
 
   if (int(DATE_TODAY)%2==1) and not files_check("data/backup_messages", TIME_TODAY):
     backup("data/data_messages.json", "data/backup_messages")
-# if (int(DATE_TODAY)%2==1) and not files_check("data/backup_mm", TIME_TODAY):
-#   backup("data/data_mm.json", "data/backup_mm")
+  if (int(DATE_TODAY)%2==1) and not files_check("data/backup_chance", TIME_TODAY):
+    backup("data/data_chance.json", "data/backup_chance")
 
   if msg.author == bot.user:
     return

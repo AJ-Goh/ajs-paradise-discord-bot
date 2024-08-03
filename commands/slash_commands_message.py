@@ -158,9 +158,11 @@ class SlashCmds_Message(commands.GroupCog, group_name="message"):
         await interaction.response.send_message(embed=Embed)
 
     # << Slash Command To Check Player Level And Stuff >> #
-    @app_commands.command(name="stats", description="Checks a user's message statistics.")
+    @app_commands.command(name="stats", description="View a user's message statistics.")
     @app_commands.describe(user="Input the target user.")
-    async def CheckUser(self, interaction: discord.Interaction, user: discord.Member):
+    async def CheckUser(self, interaction: discord.Interaction, user: discord.Member=None):
+        if user == None:
+            user = interaction.user
         if not isinstance(user, discord.Member):
             Embed = discord.Embed(description="Invalid user.", color=0xff0000)
             await interaction.response.send_message(embed=Embed)

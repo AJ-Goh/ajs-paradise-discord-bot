@@ -3,6 +3,7 @@
 # 2. poll
 # 3. sponsor
 # 4. drop
+# 5. truthordare
 
 import discord
 from discord.ext import commands
@@ -72,6 +73,24 @@ class SlashCmd_Request(commands.GroupCog, group_name="request"):
     await req_channel.send(f"## 💰 Drop Request\n- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **DETAILS**  {details}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}")
     e = discord.Embed(title="Drop Request Sent ✓", description=f"- **HOST**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **DETAILS**  {details}\n- **PRIZE**  {prize}\n- **NUMBER OF WINNERS**  {numberofwinners}", colour=0xffcc00)
     await interaction.response.send_message(embed=e, ephemeral=True)
+
+  @app_commands.command(name="truthordare", description="Request a truth or a dare for this bot's Truth or Dare game.")
+  @app_commands.describe(
+    type = "State the type of prompt.",
+    prompt = "State the prompt.")
+  @app_commands.choices(type = [
+    app_commands.Choice(name= "Truth", value= "t"),
+    app_commands.Choice(name= "Dare", value= "d")
+  ])
+  async def truthordare(self, interaction: discord.Interaction, type: str, prompt: str):
+    aj_user = self.bot.get_user(832811319957651457)
+    await aj_user.create_dm()
+    await aj_user.dm_channel.send(f"## 🧡 Truth or Dare Request\n- **USER**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **TYPE**  {type}\n- **PROMPT**  {prompt}")
+    req_channel = self.bot.get_channel(1211678134412517427)
+    await req_channel.send(f"## 🎮 Truth or Dare Request\n- **USER**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **TYPE**  {type}\n- **PROMPT**  {prompt}")
+    e = discord.Embed(title="Truth or Dare Request Sent ✓", description=f"- **USER**  {interaction.user.name} ||`ID: {interaction.user.id}`||\n- **TYPE**  {type}\n- **PROMPT**  {prompt}", colour=0xffcc00)
+    await interaction.response.send_message(embed=e, ephemeral=True)
+
     
 async def setup(bot):
   await bot.add_cog(SlashCmd_Request(bot))
