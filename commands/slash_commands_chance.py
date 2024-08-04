@@ -9,6 +9,7 @@ import discord, json
 from discord import app_commands
 from discord.ext import commands
 from datetime import datetime
+from misc.emoji import DICE, CARDS
 
 # INSUFFICIENT BALANCE EMBED
 
@@ -19,6 +20,7 @@ def balanceembed(balance):
   	colour= 0xff0000)
   e.set_footer(text= f"Your Balance: {balance} Chips")
   return e
+
 # COMMAND LIMIT EMBED
 
 def limitembed(limit):
@@ -103,7 +105,7 @@ async def access(interaction: discord.Interaction, cmd: str, limit: int, bet: in
 
     # Initialize game data if necessary
     if cmd not in userdata["Games"]:
-      userdata["Games"][cmd] = [1, 0]
+      userdata["Games"][cmd] = [1, 0, 0]
     else:
       userdata["Games"][cmd][0] += 1
     
@@ -132,6 +134,7 @@ def win(interaction, cmd, chips):
   userdata = data[str(interaction.user.id)]
   userdata["Chips"][0] += chips
   userdata["Games"][cmd][1] += 1
+  userdata["Games"][cmd][2] += chips
   with open("data/data_chance.json", mode="w") as outfile:
     json.dump(data, outfile, indent=2)
 
@@ -146,11 +149,28 @@ class SlashCmd_Chance(commands.GroupCog, group_name="chance"):
   async def stats(self, interaction: discord.Interaction, user:discord.User=None):
     if user == None:
       user = interaction.user
-    with open('data/data_chance_cd.json', mode='r') as infile:
-      data1 = json.load(infile)
     with open('data/data_chance.json', mode='r') as infile:
-      data2 = json.load(infile)
-    await interaction.response.send_message(str(data1)+"\n \n"+str(data2))
+      data = json.load(infile)
+    # Initialize userdata if it's None
+    if str(interaction.user.id) not in data:
+      data[str(interaction.user.id)] = {"Chips": [0, 0, 0], "Games": {}}
+      with open("data/data_chance.json", mode="w") as outfile:
+        json.dump(data, outfile, indent=2)
+    userchips = data[str(interaction.user.id)]["Chips"]
+    usergames = ""
+    for key,val in data[str(interaction.user.id)]["Games"].items():
+      usergames += f"- /{key}: **{val[0]}** Plays, **{val[1]}** Wins (**{val[2]}** Chips)\n"
+    e = discord.Embed(
+    		title=f"{interaction.user.name}'s chance statistics",
+    		description=f"Username: {interaction.user.global_name} (@{interaction.user.name})\n User ID: ||`{interaction.user.id}`||",
+    		colour=0xffcc00)
+    e.add_field(
+    		name="Chips",
+    		value=f"- Balance: **{userchips[0]}**\n- Winnings: **{userchips[0]-userchips[1]+userchips[2]}**\n- Cashed In: **{userchips[1]}**\n- Cashed Out: **{userchips[2]}**")
+    e.add_field(
+    		name="Games",
+    		value=usergames)
+    await interaction.response.send_message(embed=e)
 
   @app_commands.command(name="decadice", description="Roll 10 dice and get special combinations. (Daily limit: 3)")
   @app_commands.describe(bet="State the number of chips you want to bet.")
