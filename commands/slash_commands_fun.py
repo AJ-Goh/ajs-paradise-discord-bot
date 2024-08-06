@@ -17,6 +17,13 @@ from misc.images import NINETYNINE, NINETYNINE_LOGO, HIGHLOWINF, HIGHLOWINF_LOGO
 from misc.messages import NINETYNINE_DESC, HIGHLOWINF_DESC
 from misc.truthordare import TOD_TRUTHS, TOD_DARES
 
+# RNG [1]
+
+# 1. RNG Function
+
+async def rng(interaction, num1, num2):
+  await interaction.response.send_message(f"🎲 Random integer between **{num1}** and **{num2}**:\n> # `{random.randint(num1, num2)}`")
+
 # NINETYNINE [5]
 
 # 1. Stores the game
@@ -476,13 +483,41 @@ class SlashCmd_Fun(commands.GroupCog, group_name="fun"):
   def __init__(self, bot):
       self.bot = bot
 
+  
   @app_commands.command(name="rng", description="Generates a random integer between 2 integer inputs.")
   @app_commands.describe(int_1="Input the first integer.", int_2="Input the second integer.")
-  async def rng(self, interaction: discord.Interaction, int_1: int, int_2: int):
-    if int_1 < int_2 or int_1 == int_2:
-      await interaction.response.send_message(f"## 🎲 Random integer between {int_1} and {int_2}:\n> `{random.randint(int_1, int_2)}`")
+  async def rng(self, interaction: discord.Interaction, int_1: int=None, int_2: int=None):
+    if int_1 is None and int_2 is None:
+      await rng(interaction, 0, 100)
+    elif int_1 is None:
+      if int_2 != 0:
+        if int_2 > 0:
+          await rng(interaction, 0, int_2)
+        else:
+          await rng(interaction, int_2, 0)
+      else:
+        await rng(interaction, 0, 100)
+    elif int_2 is None:
+      if int_1 != 0:
+        if int_1 > 0:
+          await rng(interaction, 0, int_1)
+        else:
+          await rng(interaction, int_1, 0)
+      else:
+        await rng(interaction, 0, 100)
     else:
-      await interaction.response.send_message("## ⚠️ `int_1` is more than `int_2`:\n> To avoid argument errors, please ensure that when you send this command again, `int_1` is less than `int_2`.")
+      if int_1 != int_2:
+        if int_1 > int_2:
+          await rng(interaction, int_2, int_1)
+        else:
+          await rng(interaction, int_1, int_2)
+      elif int_1 != 0:
+        if int_1 > 0:
+          await rng(interaction, 0, int_1)
+        else:
+          await rng(interaction, int_1, 0)
+      else:
+        await rng(interaction, 0, 100)
 
   @app_commands.command(name="rps", description="Play a game of Rock-Paper-Scissors against the bot.")
   @app_commands.describe(hand="Choose what hand to play.")

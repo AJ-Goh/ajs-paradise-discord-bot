@@ -5,11 +5,18 @@
 # 4. decadice
 # 5. blackjack
 
-import discord, json, random
+import discord, json, random, time
 from discord import app_commands
 from discord.ext import commands
 from datetime import datetime
 from misc.emoji import DICE, CARDS
+
+# GAME LIMITS
+
+LIMITS = {
+  "decadice": 2,
+  "blackjack": 3
+}
 
 # LOW BET EMBED
 
@@ -80,12 +87,12 @@ def check(user, cmd, limit):
 
 # COMMAND ACCESS CHECK
 
-async def access(interaction: discord.Interaction, cmd: str, limit: int, bet: int):
+async def access(interaction: discord.Interaction, cmd: str, bet: int):
   if bet <= 0:
     e = lowbetembed(bet)
     await interaction.response.send_message(embed=e)
     return False
-  Check = check(interaction.user.id, cmd, limit)
+  Check = check(interaction.user.id, cmd, LIMITS[cmd])
   if Check[0]:
     with open('data/data_chance.json', mode='r') as infile:
       data = json.load(infile)
@@ -133,7 +140,7 @@ async def access(interaction: discord.Interaction, cmd: str, limit: int, bet: in
 
   else:
     if Check[1] == "Limit":
-      e = limitembed(limit)
+      e = limitembed(LIMITS[cmd])
       await interaction.response.send_message(embed=e)
     else:
       e = errorembed(Check[1])
@@ -142,13 +149,13 @@ async def access(interaction: discord.Interaction, cmd: str, limit: int, bet: in
 
 # GAME WIN FUNCTION
 
-def win(interaction, cmd, chips):
+def win(interaction:discord.Interaction, cmd:str, bet:int, chips_won:int):
   with open('data/data_chance.json', mode='r') as infile:
     data = json.load(infile)
   userdata = data[str(interaction.user.id)]
-  userdata["Chips"][0] += chips
+  userdata["Chips"][0] += chips_won
   userdata["Games"][cmd][1] += 1
-  userdata["Games"][cmd][2] += chips
+  userdata["Games"][cmd][2] += chips_won - bet
   with open("data/data_chance.json", mode="w") as outfile:
     json.dump(data, outfile, indent=2)
 
@@ -182,7 +189,7 @@ def sequence_straight(dice:list[int], sequence:list[int]) -> bool: # Sliding win
     if sublist == sequence or sublist == reverse:
       return True
   return False
-def all_paired_up(dice: list[int]) -> bool:
+def all_pairs(dice: list[int]) -> bool:
   if len(dice) < 10:
     return False
   counts = [0] * 7 # Index 0 is unused
@@ -198,27 +205,27 @@ def decadice_assess(dice: list[int]) -> list[str, int]:
   elif num_decadice(dice, [1]):
     return ["DecaDice Red", 90]
   elif num_of_a_kind(dice, 10):
-    return ["DecaDice", 75]
+    return ["DecaDice", 80]
   elif num_of_a_kind(dice, 9):
-    return ["Nine-of-a-Kind", 50]
-  elif num_of_a_kind(dice, 8):
-    return ["Eight-of-a-Kind", 40]
+    return ["Nine-of-a-Kind", 60]
   elif sequence_straight(dice, [1,2,3,4,5,6]):
-    return ["Full Straight", 30]
+    return ["Full Straight", 40]
+  elif num_of_a_kind(dice, 8):
+    return ["Eight-of-a-Kind", 32]
   elif num_decadice(dice, [4,5,6]):
-    return ["High Rolls", 25]
+    return ["High Rolls", 20]
   elif num_decadice(dice, [1,2,3]):
-    return ["Low Rolls", 25]
+    return ["Low Rolls", 20]
   elif num_decadice(dice, [2,4,6]):
-    return ["Even Rolls", 20]
+    return ["Even Rolls", 15]
   elif num_decadice(dice, [1,3,5]):
-    return ["Odd Rolls", 20]
+    return ["Odd Rolls", 15]
   elif num_of_a_kind(dice, 7):
     return ["Seven-of-a-Kind", 14]
   elif num_of_a_kind(dice, 6):
     return ["Six-of-a-Kind", 6]
-  elif all_paired_up(dice):
-    return ["All Paired Up", 5]
+  elif all_pairs(dice):
+    return ["All Pairs", 5]
   elif num_decadice(dice, [2,3,4,5]):
     return ["All Black", 5]
   elif num_of_a_kind(dice, 5):
@@ -241,29 +248,29 @@ DECADICE = {
 - **0X** No Combinations
 - **1X** Little Red Dot {DICE[1]}
 - **5X** All Black {DICE[2]} {DICE[3]} {DICE[4]} {DICE[5]} ...
-- **5X** All Paired Up {DICE[1]} {DICE[1]} {DICE[3]} {DICE[3]} {DICE[4]} {DICE[4]} {DICE[5]} {DICE[5]} {DICE[6]} {DICE[6]}
+- **5X** All Pairs {DICE[1]} {DICE[1]} {DICE[3]} {DICE[3]} {DICE[4]} {DICE[4]} {DICE[5]} {DICE[5]} {DICE[6]} {DICE[6]}
   """,
   "Straights":f"""
 - **1X** Low Straight {DICE[1]} {DICE[2]} {DICE[3]}
 - **1X** High Straight {DICE[4]} {DICE[5]} {DICE[6]}
-- **30X** Full Straight {DICE[1]} {DICE[2]} {DICE[3]} {DICE[4]} {DICE[5]} {DICE[6]}
+- **40X** Full Straight {DICE[1]} {DICE[2]} {DICE[3]} {DICE[4]} {DICE[5]} {DICE[6]}
   """,
   "Rolls":f"""
-- **20X** Odd Rolls {DICE[1]} {DICE[3]} {DICE[5]} ...
-- **20X** Even Rolls {DICE[2]} {DICE[4]} {DICE[6]} ...
-- **25X** Low Rolls {DICE[1]} {DICE[2]} {DICE[3]} ...
-- **25X** High Rolls {DICE[4]} {DICE[5]} {DICE[6]} ...
+- **15X** Odd Rolls {DICE[1]} {DICE[3]} {DICE[5]} ...
+- **15X** Even Rolls {DICE[2]} {DICE[4]} {DICE[6]} ...
+- **20X** Low Rolls {DICE[1]} {DICE[2]} {DICE[3]} ...
+- **20X** High Rolls {DICE[4]} {DICE[5]} {DICE[6]} ...
   """,
   "N-of-a-Kind":f"""
 - **1X** Four-of-a-Kind {DICE[2]} {DICE[2]} {DICE[2]} ... ×4
 - **3X** Five-of-a-Kind {DICE[4]} {DICE[4]} {DICE[4]} ... ×5
 - **6X** Six-of-a-Kind {DICE[3]} {DICE[3]} {DICE[3]} ... ×6
 - **14X** Seven-of-a-Kind {DICE[5]} {DICE[5]} {DICE[5]} ... ×7
-- **40X** Eight-of-a-Kind {DICE[3]} {DICE[3]} {DICE[3]} ... ×8
-- **50X** Nine-of-a-Kind {DICE[4]} {DICE[4]} {DICE[4]} ... ×9
+- **32X** Eight-of-a-Kind {DICE[3]} {DICE[3]} {DICE[3]} ... ×8
+- **60X** Nine-of-a-Kind {DICE[4]} {DICE[4]} {DICE[4]} ... ×9
   """,
   "DecaDice":f"""
-- **75X** DecaDice {DICE[3]} {DICE[3]} {DICE[3]} ... ×10
+- **80X** DecaDice {DICE[3]} {DICE[3]} {DICE[3]} ... ×10
 - **90X** DecaDice Red {DICE[1]} {DICE[1]} {DICE[1]} ... ×10
 - **100X** DecaDice Gold {DICE[6]} {DICE[6]} {DICE[6]} ... ×10
   """
@@ -303,11 +310,11 @@ class SlashCmd_Chance(commands.GroupCog, group_name="chance"):
     		value=usergames)
     await interaction.response.send_message(embed=e)
 
-  @app_commands.command(name="decadice", description="Roll 10 dice and get special combinations. (Daily limit: 2)")
+  @app_commands.command(name="decadice", description=F"Roll 10 dice and get special combinations. (Daily limit: {LIMITS["decadice"]})")
   @app_commands.describe(bet="State the number of chips you want to bet.")
   async def decadice(self, interaction: discord.Interaction, bet:int):
 
-    Access = await access(interaction, "decadice", 2, bet)
+    Access = await access(interaction, "decadice", bet)
     if not Access: return
 
     with open('data/data_chance_cd.json', mode='r') as infile:
@@ -315,30 +322,34 @@ class SlashCmd_Chance(commands.GroupCog, group_name="chance"):
     tries = "tries"
     if limit[str(interaction.user.id)]['decadice'] == 2:
       tries = "try"
-    footer = f"{3-(limit[str(interaction.user.id)]['decadice'])} {tries} remaining"
+    footer = f"{LIMITS["decadice"]-(limit[str(interaction.user.id)]['decadice'])} {tries} remaining"
     title = f"DecaDice: {interaction.user.name}"
     e = discord.Embed(
       title= title,
       colour= 0xffcc00)
     e.set_footer(text=footer)
+    einfo = discord.Embed(
+      title= "DecaDice Combinations",
+      colour= 0x5865f2
+    )
     for key,val in DECADICE.items():
-      e.add_field(name=key, value=val, inline=False)
-    await interaction.response.send_message(embed=e)
+      einfo.add_field(name=key, value=val, inline=False)
+    await interaction.response.send_message(embed=einfo, ephemeral=True)
+    game_msg = await interaction.channel.send(embed=e)
     
     dice = []
     for _ in range(10):
       dice.append(random.randint(1,6))
     desc = "#"
     for i in dice:
+      time.sleep(0.5)
       desc += " "+DICE[i]
       e = discord.Embed(
         title= title,
         description= desc,
         colour= 0xffcc00)
       e.set_footer(text=footer)
-      for key,val in DECADICE.items():
-        e.add_field(name=key, value=val, inline=False)
-      await interaction.edit_original_response(embed=e)
+      await game_msg.edit(embed=e)
     best = decadice_assess(dice)
     desc += f" \n Best Combination: {best[0]} (**{best[1]*bet}** Chips)"
     e = discord.Embed(
@@ -346,11 +357,9 @@ class SlashCmd_Chance(commands.GroupCog, group_name="chance"):
       description= desc,
       colour= 0xffcc00)
     e.set_footer(text=footer)
-    for key,val in DECADICE.items():
-      e.add_field(name=key, value=val, inline=False)
     if best[1] != 0:
-      win(interaction, "decadice", best[1]*bet)
-    await interaction.edit_original_response(embed=e)
+      win(interaction, "decadice", bet, best[1]*bet)
+    await game_msg.edit(embed=e)
 
 async def setup(bot):
   await bot.add_cog(SlashCmd_Chance(bot))
